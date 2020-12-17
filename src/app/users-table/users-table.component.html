@@ -1,0 +1,24 @@
+<table mdbTable class="table">
+  <thead class="grey lighten-1 black-text">
+  <tr>
+    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr mdbTableCol *ngFor="let user of users">
+    <th scope="row">{{user.firstName}}</th>
+    <td>{{user.lastName}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.location.city}}</td>
+    <td>
+        <app-user-editor [user]="user"></app-user-editor>
+    </td>
+    <td>
+      <span class="table-remove">
+        <mdb-icon class="user-icon" far icon="trash-alt"></mdb-icon>
+      </span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+

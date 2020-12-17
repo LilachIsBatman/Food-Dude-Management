@@ -1,0 +1,41 @@
+<header class="h-100">
+  <mdb-navbar SideClass="navbar navbar-expand-lg grey" [containerInside]="false">
+    <mdb-navbar-brand>
+      <a class="logo navbar-brand" href="#">
+        <strong>FooDude</strong>
+      </a>
+    </mdb-navbar-brand>
+    <links>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active waves-light" mdbWavesEffect>
+          <a class="nav-link">Users
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link">Restaurant</a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link">Comments</a>
+        </li>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link">Statistics</a>
+        </li>
+      </ul>
+    </links>
+  </mdb-navbar>
+  <div class="view intro-2">
+    <div class="full-bg-img">
+      <div class="mask rgba-purple-light flex-center">
+        <div class="container text-center white-text wow fadeInUp">
+          <h2>User Management</h2>
+          <app-users-table></app-users-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--<main class="text-center py-5">-->
+
+<!--</main>-->
