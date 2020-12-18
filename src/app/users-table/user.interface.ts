@@ -1,4 +1,4 @@
-import {Address} from '../address.interface';
+import {Address} from '../entity/address.interface';
 
 export interface User {
   firstName: string;

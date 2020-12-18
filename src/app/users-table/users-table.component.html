@@ -1,11 +1,23 @@
-<div class="md-form">
-  <input type="text"
-    [(ngModel)]="searchText"
-    class="form-control"
-    id="search"
-    mdbInput/>
-  <label for="search">Search</label>
+<div class="container">
+  <div class="row d-flex justify-content-around align-items-center">
+    <div class="md-form">
+      <input type="text"
+             [(ngModel)]="searchText"
+             class="form-control"
+             id="search"
+             mdbInput/>
+      <label for="search">Free Search</label>
+    </div>
+    <label>
+      <select class="browser-default custom-select">
+        <option *ngFor="let area of areas">{{area}}</option>
+      </select>
+    </label>
+    <mdb-checkbox [default]="true">Active Users</mdb-checkbox>
+    <mdb-checkbox [default]="true">Contributor Users</mdb-checkbox>
+  </div>
 </div>
+
 <table mdbTable class="table" mdbTableScroll scrollY="true" maxHeight="500">
   <thead class="grey lighten-1 black-text">
   <tr>
