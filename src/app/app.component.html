@@ -1,4 +1,5 @@
-<header class="h-100">
+<div class="lilach">
+<header class="head-nav">
   <mdb-navbar SideClass="navbar navbar-expand-lg grey" [containerInside]="false">
     <mdb-navbar-brand>
       <a class="logo navbar-brand" href="#">
@@ -7,10 +8,8 @@
     </mdb-navbar-brand>
     <links>
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active waves-light" mdbWavesEffect>
-          <a class="nav-link">Users
-            <span class="sr-only">(current)</span>
-          </a>
+        <li class="nav-item waves-light" mdbWavesEffect>
+          <a class="nav-link" routerLink="/user-table" routerLinkActive="active">User</a>
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
           <a class="nav-link">Restaurant</a>
@@ -35,7 +34,4 @@
     </div>
   </div>
 </header>
-
-<!--<main class="text-center py-5">-->
-
-<!--</main>-->
+</div>

@@ -5,3 +5,16 @@
 .user-icon {
   cursor: pointer;
 }
+
+.md-form label {
+  color: white ;
+}
+
+.md-form input[type=text]:focus:not([readonly]) + label{
+  color: white ;
+}
+
+.md-form input[type=text]:focus:not([readonly]){
+  color: black;
+  border-bottom-color: white;
+}

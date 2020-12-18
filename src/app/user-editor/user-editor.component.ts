@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MDBModalRef} from 'angular-bootstrap-md';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../users-table/user.interface';
 

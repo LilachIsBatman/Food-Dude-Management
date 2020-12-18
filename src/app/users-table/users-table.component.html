@@ -1,4 +1,12 @@
-<table mdbTable class="table">
+<div class="md-form">
+  <input type="text"
+    [(ngModel)]="searchText"
+    class="form-control"
+    id="search"
+    mdbInput/>
+  <label for="search">Search</label>
+</div>
+<table mdbTable class="table" mdbTableScroll scrollY="true" maxHeight="500">
   <thead class="grey lighten-1 black-text">
   <tr>
     <th *ngFor="let head of headElements" scope="col">{{head}} </th>
@@ -21,4 +29,3 @@
   </tr>
   </tbody>
 </table>
-
