@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {User} from '../users-table/user.interface';
+import {User} from '../entity/user.interface';
 
 @Component({
   selector: 'app-user-editor',

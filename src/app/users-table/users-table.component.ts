@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {User} from './user.interface';
+import {User} from '../entity/user.interface';
 import {MDBModalService, MdbTableDirective} from 'angular-bootstrap-md';
 import {AreaEnum} from '../entity/area.enum';
 
@@ -12,14 +12,14 @@ export class UsersTableComponent implements OnInit {
   @ViewChild(MdbTableDirective, {static: true}) userTable: MdbTableDirective;
   headElements = ['First Name', 'Last Name', 'Email', 'City', 'Edit', 'Delete'];
   users: User[] = [
-    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
-    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
-    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
-    {firstName: 'Batman', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
-    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
-    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
-    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
-    {firstName: 'Batman', lastName: 'Shimonov', email: 'lilach@gmail.com', location: {city: 'rishon', houseNumber: 3, street: 'hakokia'}}
+    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
+    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
+    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
+    {firstName: 'Batman', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
+    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
+    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
+    {firstName: 'Lilach', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}},
+    {firstName: 'Batman', lastName: 'Shimonov', email: 'lilach@gmail.com', address: {city: 'rishon', houseNumber: 3, street: 'hakokia'}}
   ];
   searchText = '';
   previous: string;

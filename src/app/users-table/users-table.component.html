@@ -1,3 +1,5 @@
+<h2>User Management</h2>
+
 <div class="container">
   <div class="row d-flex justify-content-around align-items-center">
     <div class="md-form">
@@ -29,7 +31,7 @@
     <th scope="row">{{user.firstName}}</th>
     <td>{{user.lastName}}</td>
     <td>{{user.email}}</td>
-    <td>{{user.location.city}}</td>
+    <td>{{user.address.city}}</td>
     <td>
         <app-user-editor [user]="user"></app-user-editor>
     </td>
