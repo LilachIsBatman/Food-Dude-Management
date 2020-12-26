@@ -1,0 +1,20 @@
+import { User } from '../../entity/user.interface';
+import { createReducer, on } from '@ngrx/store';
+import { loadUsersSuccess, updateUserSuccess } from '../actions/user.actions';
+
+export interface UserState {
+  users: User[];
+}
+
+export const userStateToken = 'users';
+
+const initialState: UserState = { users: [] };
+
+export const userReducer = createReducer(
+  initialState,
+  on(loadUsersSuccess, (state, { users }) => ({ ...state, users })),
+  on(updateUserSuccess, (state, { user }) => ({
+    ...state,
+    users: state.users.map((u) => (u._id === user._id ? user : u)),
+  }))
+);

@@ -2,11 +2,12 @@ import {User} from './user.interface';
 import {Restaurant} from './restaurant.interface';
 
 export interface Review {
-  id: number;
+  _id: number;
   user: User;
   restaurant: Restaurant;
   content: string;
-  creationDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 

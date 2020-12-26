@@ -4,12 +4,20 @@
   <div class="row d-flex justify-content-around align-items-center">
     <div class="md-form">
       <input type="text"
-             [(ngModel)]="searchText"
+             [(ngModel)]="searchFirstNameText"
              class="form-control"
-             id="search"
+             id="search-first-name"
              mdbInput/>
-      <label for="search">Free Search</label>
+      <label for="search-first-name">Search First Name</label>
     </div>
+      <div class="md-form mx-3">
+        <input type="text"
+               [(ngModel)]="searchLastNameText"
+               class="form-control"
+               id="search-last-name"
+               mdbInput/>
+        <label for="search-last-name">Search Last Name</label>
+      </div>
     <label>
       <select class="browser-default custom-select">
         <option *ngFor="let area of areas">{{area}}</option>
@@ -17,6 +25,7 @@
     </label>
     <mdb-checkbox [default]="true">Active Users</mdb-checkbox>
     <mdb-checkbox [default]="true">Contributor Users</mdb-checkbox>
+    <button type="button" mdbBtn color="dark" mdbWavesEffect size="sm" (click)="search()">Search</button>
   </div>
 </div>
 
@@ -27,13 +36,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr mdbTableCol *ngFor="let user of users">
+  <tr mdbTableCol *ngFor="let user of users$ | async">
     <th scope="row">{{user.firstName}}</th>
     <td>{{user.lastName}}</td>
     <td>{{user.email}}</td>
     <td>{{user.address.city}}</td>
     <td>
-        <app-user-editor [user]="user"></app-user-editor>
+        <app-user-editor [user]="user" (userUpdate)="onUserUpdate($event)"></app-user-editor>
     </td>
     <td>
       <span class="table-remove">
