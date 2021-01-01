@@ -1,5 +1,5 @@
-import { createAction, props } from '@ngrx/store';
-import { User } from '../../entity/user.interface';
+import {createAction, props} from '@ngrx/store';
+import {User} from '../../entity/user.interface';
 
 export const loadUsers = createAction('[Users] load users');
 export const loadUsersSuccess = createAction(
@@ -29,13 +29,11 @@ export const deleteUserSuccess = createAction(
 export const searchUsers = createAction(
   '[Users] search user',
   props<{
-    update: Partial<
-      Omit<Omit<User, '_id'>, 'address'> & {
-        city: string;
-        street: string;
-        houseNumber: number;
-      } & { contributor: boolean; mehubar: boolean }
-    >;
+    update: Partial<Omit<Omit<User, '_id'>, 'address'> & {
+      city: string;
+      street: string;
+      houseNumber: number;
+    } & { contributor: boolean; mehubar: boolean }>;
   }>()
 );
 export const searchUsersSuccess = createAction(

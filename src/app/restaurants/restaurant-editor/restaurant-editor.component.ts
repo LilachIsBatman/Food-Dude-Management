@@ -15,24 +15,19 @@ import {getCategories} from '../../categories/selectors/category.selectors';
 })
 export class RestaurantEditorComponent implements OnInit, OnDestroy {
   @Input() restaurant: Restaurant;
+  @Input() categories: Category[];
   @Output() restaurantUpdate: EventEmitter<Restaurant>;
   editedRestaurant: Restaurant;
-  categories$: Observable<Category[]>;
   destroy$: Subject<void>;
-  categories: Category[];
   rating: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  constructor(private store: Store<CategoryState>) {
+  constructor() {
     this.restaurantUpdate = new EventEmitter<Restaurant>();
   }
 
   ngOnInit(): void {
     this.editedRestaurant = cloneDeep(this.restaurant);
     this.destroy$ = new Subject<void>();
-    this.categories$ = this.store.pipe(select(getCategories));
-    this.categories$.pipe(takeUntil(this.destroy$)).subscribe((categories) => {
-      this.categories = categories;
-    });
   }
 
   updateRestaurant(restaurant: Restaurant): void {
