@@ -23,6 +23,7 @@ import {RestaurantEffects} from './restaurants/effects/restaurant.effects.servic
 import {RestaurantEditorComponent} from './restaurants/restaurant-editor/restaurant-editor.component';
 import {categoriesReducer, categoryStateToken} from './categories/reducer/category.reducer';
 import {CategoryEffects} from './categories/effects/category.effects.service';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {CategoryEffects} from './categories/effects/category.effects.service';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
