@@ -16,11 +16,29 @@ export const updateUserSuccess = createAction(
   props<{ user: User }>()
 );
 
-// export const searchUsers = createAction(
-//   '[Users] search user',
-//   props<{ update: Partial<User> }>()
-// );
-// export const updateUserSuccess = createAction(
-//   '[Users] update user success',
-//   props<{ user: User }>()
-// );
+export const deleteUser = createAction(
+  '[User] delete user',
+  props<{ id: string }>()
+);
+export const deleteUserSuccess = createAction(
+  '[User] delete user success',
+  props<{ user: User }>()
+);
+
+// change params
+export const searchUsers = createAction(
+  '[Users] search user',
+  props<{
+    update: Partial<
+      Omit<Omit<User, '_id'>, 'address'> & {
+        city: string;
+        street: string;
+        houseNumber: number;
+      } & { contributor: boolean; mehubar: boolean }
+    >;
+  }>()
+);
+export const searchUsersSuccess = createAction(
+  '[Users] search user success',
+  props<{ users: User[] }>()
+);

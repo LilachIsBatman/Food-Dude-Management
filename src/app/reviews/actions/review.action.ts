@@ -6,3 +6,8 @@ export const loadReviewSuccess = createAction(
   '[Review] load review success',
   props<{ reviews: Review[] }>()
 );
+export const deleteReview = createAction('[Reviews] delete review', props<{ id: string }>());
+export const deleteReviewSuccess = createAction(
+  '[Review] delete review success',
+  props<{ review: Review }>()
+);

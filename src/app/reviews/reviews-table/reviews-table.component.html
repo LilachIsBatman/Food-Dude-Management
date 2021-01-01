@@ -14,7 +14,7 @@
     <td>{{review.content}}</td>
     <td>
       <span class="table-remove">
-        <mdb-icon class="review-icon" far icon="trash-alt"></mdb-icon>
+        <mdb-icon class="review-icon" far icon="trash-alt" (click)="deleteReview(review._id)"></mdb-icon>
       </span>
     </td>
   </tr>

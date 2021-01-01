@@ -12,7 +12,7 @@ import { select, Store } from '@ngrx/store';
 import { UserState } from '../reducer/user.reducer';
 import { getUsers } from '../selectors/user.selectors';
 import { takeUntil } from 'rxjs/operators';
-import {updateUser} from '../actions/user.actions';
+import {deleteUser, updateUser} from '../actions/user.actions';
 
 @Component({
   selector: 'app-users-table',
@@ -48,6 +48,10 @@ export class UsersTableComponent implements OnInit, OnDestroy {
 
   onUserUpdate(user: User): void {
     this.store.dispatch(updateUser({update: user}));
+  }
+
+  deleteUser(id: string): void {
+    this.store.dispatch(deleteUser({ id }));
   }
 
   search(): void {
