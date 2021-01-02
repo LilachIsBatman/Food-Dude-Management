@@ -1,7 +1,6 @@
 import { User } from '../../entity/user.interface';
 import { createReducer, on } from '@ngrx/store';
 import {deleteUserSuccess, loadUsersSuccess, updateUserSuccess} from '../actions/user.actions';
-import {deleteReviewSuccess} from '../../reviews/actions/review.action';
 
 export interface UserState {
   users: User[];

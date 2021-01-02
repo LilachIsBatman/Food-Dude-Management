@@ -6,11 +6,12 @@ import {takeUntil} from 'rxjs/operators';
 import {Restaurant} from '../../entity/restaurant.interface';
 import {RestaurantState} from '../reducer/restaurant.reducer';
 import {getRestaurants} from '../selectors/review.selectors';
-import {deleteRestaurant, updateRestaurant} from '../actions/restaurant.action';
+import {deleteRestaurant, loadRestaurants, loadRestaurantsSuccess, searchRestaurants, updateRestaurant} from '../actions/restaurant.action';
 import {AreaEnum} from '../../entity/area.enum';
 import {CategoryState} from '../../categories/reducer/category.reducer';
 import {Category} from '../../entity/category.interface';
 import {getCategories} from '../../categories/selectors/category.selectors';
+import {isNil, omitBy} from 'lodash';
 
 @Component({
   selector: 'app-restaurant-table',
@@ -23,12 +24,16 @@ export class RestaurantTableComponent implements OnInit, OnDestroy {
   restaurants$: Observable<Restaurant[]>;
   categories$: Observable<Category[]>;
   destroy$: Subject<void>;
-  areas = [AreaEnum.All, AreaEnum.CENTRAL, AreaEnum.NORTH, AreaEnum.SOUTH];
+  areas = [AreaEnum.All, AreaEnum.CENTER, AreaEnum.NORTH, AreaEnum.SOUTH];
   rating = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   categories: Category[];
   searchNameText = '';
+  selectedArea = AreaEnum.All;
+  selectedCategory: string;
+  selectedRating = 1;
 
   constructor(private store: Store<RestaurantState | CategoryState>) {
+    this.store.dispatch(loadRestaurants());
   }
 
   ngOnInit(): void {
@@ -37,7 +42,9 @@ export class RestaurantTableComponent implements OnInit, OnDestroy {
     this.categories$ = this.store.pipe(select(getCategories));
 
     this.categories$.pipe(takeUntil(this.destroy$)).subscribe((categories) => {
-      this.categories = categories;
+      const emptyCategory = {name: 'all categories', description: '1', _id: '1'};
+      this.categories = [emptyCategory, ...categories];
+      this.selectedCategory = emptyCategory.name;
     });
     this.restaurants$.pipe(takeUntil(this.destroy$)).subscribe((restaurants) => {
       this.restaurantTable.setDataSource(restaurants);
@@ -57,5 +64,26 @@ export class RestaurantTableComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
+    this.store.dispatch(
+      searchRestaurants({
+        params: omitBy(
+          {
+            name: this.searchNameText || undefined,
+            minRating: this.selectedRating || undefined,
+            area: this.getSearchableArea(),
+            category: this.getSearchableCategory()
+          },
+          isNil
+        ),
+      })
+    );
+  }
+
+  getSearchableArea(): AreaEnum {
+    return this.selectedArea === AreaEnum.All ? undefined : this.selectedArea;
+  }
+
+  getSearchableCategory(): string {
+    return this.selectedCategory === 'all categories' ? undefined : this.selectedCategory;
   }
 }

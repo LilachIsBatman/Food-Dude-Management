@@ -7,7 +7,7 @@ import {
   deleteRestaurant,
   deleteRestaurantSuccess,
   loadRestaurants,
-  loadRestaurantsSuccess,
+  loadRestaurantsSuccess, searchRestaurants,
   updateRestaurant,
   updateRestaurantSuccess,
 } from '../actions/restaurant.action';
@@ -16,7 +16,8 @@ import {omit} from 'lodash';
 
 @Injectable()
 export class RestaurantEffects implements OnInitEffects {
-  constructor(private actions: Actions, private http: HttpClient) {}
+  constructor(private actions: Actions, private http: HttpClient) {
+  }
 
   loadRestaurants$ = createEffect(() =>
     this.actions.pipe(
@@ -30,7 +31,7 @@ export class RestaurantEffects implements OnInitEffects {
         })
       ),
       map((restaurants: Restaurant[]) =>
-        loadRestaurantsSuccess({ restaurants })
+        loadRestaurantsSuccess({restaurants})
       )
     )
   );
@@ -38,10 +39,10 @@ export class RestaurantEffects implements OnInitEffects {
   updateRestaurant$ = createEffect(() =>
     this.actions.pipe(
       ofType(updateRestaurant),
-      switchMap(({ update }) =>
+      switchMap(({update}) =>
         this.http.put(
           `https://food-dude.herokuapp.com/restaurants/${update._id}`,
-          omit({ ...update, category: update.category._id }, ['_id']),
+          omit({...update, category: update.category._id}, ['_id']),
           {
             headers: {
               Authorization:
@@ -50,14 +51,14 @@ export class RestaurantEffects implements OnInitEffects {
           }
         )
       ),
-      map((restaurant: Restaurant) => updateRestaurantSuccess({ restaurant }))
+      map((restaurant: Restaurant) => updateRestaurantSuccess({restaurant}))
     )
   );
 
   deleteRestaurant$ = createEffect(() =>
     this.actions.pipe(
       ofType(deleteRestaurant),
-      switchMap(({ id }) =>
+      switchMap(({id}) =>
         this.http.delete(
           `https://food-dude.herokuapp.com/Restaurants/${id}`,
           {
@@ -68,7 +69,23 @@ export class RestaurantEffects implements OnInitEffects {
           }
         )
       ),
-      map((restaurant: Restaurant) => deleteRestaurantSuccess({ restaurant }))
+      map((restaurant: Restaurant) => deleteRestaurantSuccess({restaurant}))
+    )
+  );
+
+  searchRestaurants$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(searchRestaurants),
+      switchMap(({params}: { params: any }) =>
+        this.http.get('https://food-dude.herokuapp.com/restaurants/search', {
+          params,
+          headers: {
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+          },
+        })
+      ),
+      map((restaurants: Restaurant[]) => loadRestaurantsSuccess({restaurants}))
     )
   );
 

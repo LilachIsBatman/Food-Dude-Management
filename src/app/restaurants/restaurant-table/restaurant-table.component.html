@@ -11,17 +11,17 @@
       <label for="search-name">Restaurant Name</label>
     </div>
     <label>
-      <select class="browser-default custom-select">
+      <select class="browser-default custom-select" [(ngModel)]="selectedArea">
         <option *ngFor="let area of areas">{{area}}</option>
       </select>
     </label>
     <label>
-      <select id = "category" class="browser-default custom-select">
-        <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
+      <select id = "category" class="browser-default custom-select" [(ngModel)]="selectedCategory">
+        <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
       </select>
     </label>
     <label>
-      <select class="browser-default custom-select">
+      <select class="browser-default custom-select" [(ngModel)]="selectedRating">
         <option *ngFor="let score of rating">{{score}}</option>
       </select>
     </label>

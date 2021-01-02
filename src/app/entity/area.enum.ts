@@ -1,6 +1,6 @@
 export enum AreaEnum {
-  All = 'All Areas',
-  NORTH = 'North',
-  CENTRAL = 'Central',
-  SOUTH = 'South'
+  All = 'all areas',
+  NORTH = 'north',
+  CENTER = 'center',
+  SOUTH = 'south'
 }

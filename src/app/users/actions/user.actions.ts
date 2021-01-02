@@ -25,18 +25,13 @@ export const deleteUserSuccess = createAction(
   props<{ user: User }>()
 );
 
-// change params
 export const searchUsers = createAction(
   '[Users] search user',
   props<{
-    update: Partial<Omit<Omit<User, '_id'>, 'address'> & {
+    params: Partial<Omit<Omit<User, '_id'>, 'address'> & {
       city: string;
       street: string;
       houseNumber: number;
-    } & { contributor: boolean; mehubar: boolean }>;
+    } & { contributor: boolean; currentlyLoggedIn: boolean }>;
   }>()
-);
-export const searchUsersSuccess = createAction(
-  '[Users] search user success',
-  props<{ users: User[] }>()
 );
