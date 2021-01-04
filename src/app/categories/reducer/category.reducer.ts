@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {deleteCategorySuccess, loadCategoriesSuccess, updateCategorySuccess} from '../actions/category.action';
+import {createCategorySuccess, deleteCategorySuccess, loadCategoriesSuccess, updateCategorySuccess} from '../actions/category.action';
 import {Category} from '../../entity/category.interface';
 
 export interface CategoryState {
@@ -21,4 +21,5 @@ export const categoriesReducer = createReducer(
     ...state,
     categories: state.categories.map((u) => (u._id === category._id ? category : u)),
   })),
+  on(createCategorySuccess, (state, {category}) => ({...state, categories: [...state.categories, category]})),
 );

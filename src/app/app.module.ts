@@ -26,6 +26,8 @@ import {CategoryEffects} from './categories/effects/category.effects.service';
 import {CommonModule} from '@angular/common';
 import { CategoriesTableComponent } from './categories/categories-table/categories-table.component';
 import { CategoriesEditorComponent } from './categories/categories-editor/categories-editor.component';
+import { IndividualCategoryComponent } from './categories/individual-category/individual-category.component';
+import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { CategoriesEditorComponent } from './categories/categories-editor/catego
     RestaurantEditorComponent,
     CategoriesTableComponent,
     CategoriesEditorComponent,
+    IndividualCategoryComponent,
+    CreateCategoryComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import {Category} from '../../entity/category.interface';
-import {User} from '../../entity/user.interface';
 
 export const loadCategories = createAction('[Category] load categories');
 export const loadCategoriesSuccess = createAction(
@@ -23,5 +22,14 @@ export const updateCategory = createAction(
 );
 export const updateCategorySuccess = createAction(
   '[Category] update category success',
+  props<{ category: Category }>()
+);
+
+export const createCategory = createAction(
+  '[Category] create category',
+  props<{ create: Partial<Category> }>()
+);
+export const createCategorySuccess = createAction(
+  '[Category] create category success',
   props<{ category: Category }>()
 );

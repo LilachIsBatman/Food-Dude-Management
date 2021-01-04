@@ -1,6 +1,6 @@
 <h2>Category Management</h2>
 
-<button type="button" mdbBtn color="success" mdbWavesEffect size="sm" class="my-3" (click)="openNewCategory()">New Category</button>
+<app-create-category (categoryCreate)="onCategoryCreate($event)" ></app-create-category>
 
 <table mdbTable class="table" mdbTableScroll scrollY="true" maxHeight="500">
   <thead class="grey lighten-1 black-text">
