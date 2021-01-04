@@ -1,0 +1,25 @@
+<h2>Category Management</h2>
+
+<button type="button" mdbBtn color="success" mdbWavesEffect size="sm" class="my-3" (click)="openNewCategory()">New Category</button>
+
+<table mdbTable class="table" mdbTableScroll scrollY="true" maxHeight="500">
+  <thead class="grey lighten-1 black-text">
+  <tr>
+    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr mdbTableCol *ngFor="let category of categories$ | async">
+    <th scope="row">{{category.name}}</th>
+    <td>{{category.description}}</td>
+    <td>
+      <app-categories-editor [category]="category" (categoryUpdate)="onCategoryUpdate($event)"></app-categories-editor>
+    </td>
+    <td>
+      <span class="table-remove">
+        <mdb-icon class="delete-icon" far icon="trash-alt" (click)="deleteCategory(category._id)"></mdb-icon>
+      </span>
+    </td>
+  </tr>
+  </tbody>
+</table>

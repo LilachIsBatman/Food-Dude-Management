@@ -24,6 +24,8 @@ import {RestaurantEditorComponent} from './restaurants/restaurant-editor/restaur
 import {categoriesReducer, categoryStateToken} from './categories/reducer/category.reducer';
 import {CategoryEffects} from './categories/effects/category.effects.service';
 import {CommonModule} from '@angular/common';
+import { CategoriesTableComponent } from './categories/categories-table/categories-table.component';
+import { CategoriesEditorComponent } from './categories/categories-editor/categories-editor.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import {CommonModule} from '@angular/common';
     ReviewsTableComponent,
     RestaurantTableComponent,
     RestaurantEditorComponent,
+    CategoriesTableComponent,
+    CategoriesEditorComponent,
   ],
   imports: [
     BrowserModule,
