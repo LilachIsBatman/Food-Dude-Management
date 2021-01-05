@@ -5,7 +5,7 @@ import {select, Store} from '@ngrx/store';
 import {Category} from '../../entity/category.interface';
 import {CategoryState} from '../reducer/category.reducer';
 import {getCategories} from '../selectors/category.selectors';
-import {createCategory, updateCategory} from '../actions/category.action';
+import {createCategory, deleteCategory, updateCategory} from '../actions/category.action';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
@@ -42,7 +42,7 @@ export class CategoriesTableComponent implements OnInit, OnDestroy {
   }
 
   deleteCategory(id: string): void {
-    // this.store.dispatch(deleteC({ id }));
+    this.store.dispatch(deleteCategory({ id }));
   }
 
   onCategoryUpdate(category: Category): void {
