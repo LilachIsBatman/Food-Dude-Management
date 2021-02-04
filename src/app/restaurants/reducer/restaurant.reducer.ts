@@ -1,6 +1,11 @@
 import {createReducer, on} from '@ngrx/store';
 import {Restaurant} from '../../entity/restaurant.interface';
-import {deleteRestaurantSuccess, loadRestaurantsSuccess, updateRestaurantSuccess} from '../actions/restaurant.action';
+import {
+  createRestaurantSuccess,
+  deleteRestaurantSuccess,
+  loadRestaurantsSuccess,
+  updateRestaurantSuccess
+} from '../actions/restaurant.action';
 
 export interface RestaurantState {
   restaurants: Restaurant[];
@@ -20,5 +25,6 @@ export const restaurantsReducer = createReducer(
   on(deleteRestaurantSuccess, (state, { restaurant }) => ({
     ...state,
     restaurants: state.restaurants.filter(currentRestaurant => currentRestaurant._id !== restaurant._id)
-  }))
+  })),
+  on(createRestaurantSuccess, (state, {restaurant}) => ({...state, restaurants: [...state.restaurants, restaurant]})),
 );

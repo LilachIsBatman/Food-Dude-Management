@@ -1,12 +1,5 @@
-<button
-  type="button"
-  class="btn edit"
-  data-toggle="modal"
-  data-target="#basicExample"
-  (click)="frame.show()"
->
-  <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-</button>
+<button type="button" mdbBtn color="success" mdbWavesEffect size="sm" class="my-3" (click)="frame.show()">New Restaurant</button>
+
 <div
   mdbModal
   #frame="mdbModal"
@@ -28,11 +21,12 @@
         >
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100">Edit Restaurant</h4>
+        <h4 class="modal-title w-100">New Restaurant</h4>
       </div>
       <app-individual-restaurant [frame]="frame" [categories]="categories"
-                                 [selectedCategory]="editedRestaurant.category.name" [rating]="rating"
-                                 [editedRestaurant]="editedRestaurant" [areas]="areas" (restaurantUpdate)="updateRestaurant($event)" ></app-individual-restaurant>
+                                 [selectedCategory]="newRestaurant.category.name" [rating]="rating"
+                                 [editedRestaurant]="newRestaurant" [areas]="areas"
+                                 (restaurantUpdate)="createRestaurant($event)" ></app-individual-restaurant>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {MDBBootstrapModule, MDBModalRef, ModalModule} from 'angular-bootstrap-md';
+import {MDBBootstrapModule, MDBModalRef} from 'angular-bootstrap-md';
 import {UsersTableComponent} from './users/users-table/users-table.component';
 import {UserEditorComponent} from './users/user-editor/user-editor.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -28,6 +28,9 @@ import { CategoriesTableComponent } from './categories/categories-table/categori
 import { CategoriesEditorComponent } from './categories/categories-editor/categories-editor.component';
 import { IndividualCategoryComponent } from './categories/individual-category/individual-category.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
+import { IndividualRestaurantComponent } from './restaurants/individual-restaurant/individual-restaurant.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NewRestaurantComponent } from './restaurants/new-restaurant/new-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -36,11 +39,13 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
     UserEditorComponent,
     ReviewsTableComponent,
     RestaurantTableComponent,
+    NewRestaurantComponent,
     RestaurantEditorComponent,
     CategoriesTableComponent,
     CategoriesEditorComponent,
     IndividualCategoryComponent,
     CreateCategoryComponent,
+    IndividualRestaurantComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +62,7 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
     }),
     ReactiveFormsModule,
     FormsModule,
+    NoopAnimationsModule
   ],
   providers: [UsersTableComponent, UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, MDBModalRef],
   bootstrap: [AppComponent],

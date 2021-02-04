@@ -1,22 +1,20 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Restaurant} from '../../entity/restaurant.interface';
-import {cloneDeep} from 'lodash';
-import {Subject} from 'rxjs';
 import {Category} from '../../entity/category.interface';
+import {Subject} from 'rxjs';
 import {AreaEnum} from '../../entity/area.enum';
 
 @Component({
-  selector: 'app-restaurant-editor',
-  templateUrl: './restaurant-editor.component.html',
-  styleUrls: ['./restaurant-editor.component.scss']
+  selector: 'app-new-restaurant',
+  templateUrl: './new-restaurant.component.html',
+  styleUrls: ['./new-restaurant.component.scss']
 })
-export class RestaurantEditorComponent implements OnInit, OnDestroy {
-  @Input() restaurant: Restaurant;
+export class NewRestaurantComponent implements OnInit, OnDestroy {
   @Input() categories: Category[];
   @Input() areas: AreaEnum[];
   @Input() rating: number[];
   @Output() restaurantUpdate: EventEmitter<Restaurant>;
-  editedRestaurant: Restaurant;
+  newRestaurant: Restaurant;
   destroy$: Subject<void>;
 
   constructor() {
@@ -24,11 +22,12 @@ export class RestaurantEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.editedRestaurant = cloneDeep(this.restaurant);
     this.destroy$ = new Subject<void>();
+    this.newRestaurant = {category: {_id: '', name: '', description: ''}, rating: 5, _id: '', description: '', name: '', imageUrl: '',
+    address: {area: AreaEnum.All, city: '', street: '', houseNumber: 0}};
   }
 
-  updateRestaurant(restaurant: Restaurant): void {
+  createRestaurant(restaurant: Restaurant): void {
     this.restaurantUpdate.emit(restaurant);
   }
 

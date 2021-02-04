@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MdbTableDirective} from 'angular-bootstrap-md';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MdbTableDirective, MdbTablePaginationComponent} from 'angular-bootstrap-md';
 import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {takeUntil} from 'rxjs/operators';
 import {Restaurant} from '../../entity/restaurant.interface';
 import {RestaurantState} from '../reducer/restaurant.reducer';
 import {getRestaurants} from '../selectors/review.selectors';
-import {deleteRestaurant, loadRestaurants, loadRestaurantsSuccess, searchRestaurants, updateRestaurant} from '../actions/restaurant.action';
+import {createRestaurant, deleteRestaurant, loadRestaurants, searchRestaurants, updateRestaurant} from '../actions/restaurant.action';
 import {AreaEnum} from '../../entity/area.enum';
 import {CategoryState} from '../../categories/reducer/category.reducer';
 import {Category} from '../../entity/category.interface';
@@ -16,23 +16,24 @@ import {isNil, omitBy} from 'lodash';
 @Component({
   selector: 'app-restaurant-table',
   templateUrl: './restaurant-table.component.html',
-  styleUrls: ['./restaurant-table.component.scss']
+  styleUrls: ['./restaurant-table.component.scss'],
 })
-export class RestaurantTableComponent implements OnInit, OnDestroy {
+export class RestaurantTableComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, {static: true}) restaurantTable: MdbTableDirective;
   headElements = ['Name', 'Category', 'Rating', 'Description', 'Address', 'Block Comments', 'Edit', 'Delete'];
   restaurants$: Observable<Restaurant[]>;
   categories$: Observable<Category[]>;
   destroy$: Subject<void>;
   areas = [AreaEnum.All, AreaEnum.CENTER, AreaEnum.NORTH, AreaEnum.SOUTH];
-  rating = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  rating = [1, 2, 3, 4, 5];
   categories: Category[];
   searchNameText = '';
   selectedArea = AreaEnum.All;
   selectedCategory: string;
   selectedRating = 1;
 
-  constructor(private store: Store<RestaurantState | CategoryState>) {
+  constructor(private store: Store<RestaurantState | CategoryState>, private changeDetectorRef: ChangeDetectorRef) {
     this.store.dispatch(loadRestaurants());
   }
 
@@ -51,8 +52,19 @@ export class RestaurantTableComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.mdbTablePagination.setMaxVisibleItemsNumberTo(6);
+    this.mdbTablePagination.calculateFirstItemIndex();
+    this.mdbTablePagination.calculateLastItemIndex();
+    this.changeDetectorRef.detectChanges();
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  onCreateRestaurant(restaurant: Restaurant): void {
+    this.store.dispatch(createRestaurant({create: restaurant}));
   }
 
   onRestaurantUpdate(restaurant: Restaurant): void {

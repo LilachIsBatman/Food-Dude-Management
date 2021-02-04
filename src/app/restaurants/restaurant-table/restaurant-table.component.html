@@ -26,36 +26,43 @@
       </select>
     </label>
     <button type="button" mdbBtn color="dark" mdbWavesEffect size="sm" (click)="search()">Search</button>
-    <button type="button" mdbBtn color="success" mdbWavesEffect size="sm">New Restaurant</button>
+    <app-new-restaurant [categories]="categories" [areas]="areas" [rating]="rating" (restaurantUpdate)="onCreateRestaurant($event)"></app-new-restaurant>
   </div>
 </div>
 
-<table mdbTable class="table" mdbTableScroll scrollY="true" maxHeight="500">
+<table mdbTable class="table" mdbTableScroll scrollY="true" maxHeight="600" #restaurantTable="mdbTable">
   <thead class="grey lighten-1 black-text">
   <tr>
     <th *ngFor="let head of headElements" scope="col">{{head}} </th>
   </tr>
   </thead>
   <tbody>
-  <tr mdbTableCol *ngFor="let restaurant of restaurants$ | async">
-    <th scope="row">{{restaurant.name}}</th>
-    <td>{{restaurant.category.name}}</td>
-    <td>{{restaurant.rating}}</td>
-    <td>{{restaurant.description}}</td>
-    <td>{{restaurant.address.city + ", " + restaurant.address.street + ", " + restaurant.address.houseNumber}}</td>
-    <td>
+  <tr mdbTableCol *ngFor="let restaurant of restaurants$ | async; let i = index">
+    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{restaurant.name}}</td>
+    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{restaurant.category.name}}</td>
+    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{restaurant.rating}}</td>
+    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{restaurant.description}}</td>
+    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{restaurant.address.city + ", " + restaurant.address.street + ", " + restaurant.address.houseNumber}}</td>
+    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
       <span>
         <mdb-icon class="click-icon" fas icon="comment-slash"></mdb-icon>
       </span>
     </td>
-    <td>
-      <app-restaurant-editor [restaurant]="restaurant" [categories]="categories" (restaurantUpdate)="onRestaurantUpdate($event)"></app-restaurant-editor>
+    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+      <app-restaurant-editor [restaurant]="restaurant" [categories]="categories" [areas]="areas" [rating]="rating" (restaurantUpdate)="onRestaurantUpdate($event)"></app-restaurant-editor>
     </td>
-    <td>
+    <td  *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
        <span>
         <mdb-icon class="click-icon" far icon="trash-alt" (click)="deleteRestaurant(restaurant._id)"></mdb-icon>
       </span>
     </td>
   </tr>
   </tbody>
+  <tfoot class="grey lighten-5">
+  <tr>
+    <td colspan="8">
+      <mdb-table-pagination [tableEl]="restaurantTable" [searchDataSource]="restaurants$"></mdb-table-pagination>
+    </td>
+  </tr>
+  </tfoot>
 </table>

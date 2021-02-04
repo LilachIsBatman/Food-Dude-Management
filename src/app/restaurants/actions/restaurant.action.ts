@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { Restaurant } from '../../entity/restaurant.interface';
-import { User } from '../../entity/user.interface';
 
 export const loadRestaurants = createAction('[Restaurant] load restaurants');
 export const loadRestaurantsSuccess = createAction(
@@ -37,4 +36,13 @@ export const searchRestaurants = createAction(
       } & { minRating: number } & { category: string }
     >;
   }>()
+);
+
+export const createRestaurant = createAction(
+  '[Restaurant] create restaurant',
+  props<{ create: Partial<Restaurant> }>()
+);
+export const createRestaurantSuccess = createAction(
+  '[Restaurant] create restaurant success',
+  props<{ restaurant: Restaurant }>()
 );

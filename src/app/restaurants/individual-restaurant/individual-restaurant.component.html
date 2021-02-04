@@ -1,0 +1,113 @@
+<div class="modal-body d-flex flex-column">
+
+  <div class="form-row mb-3">
+    <div class="col md-form mb-2">
+      <input
+        mdbInput
+        [(ngModel)]="editedRestaurant.name"
+        type="text"
+        id="name"
+        class="form-control"
+      />
+      <label for="name">Name</label>
+    </div>
+    <div class="col md-form mb-2">
+        <input
+          mdbInput
+          [(ngModel)]="editedRestaurant.description"
+          type="text"
+          id="description"
+          class="form-control"
+        />
+        <label for="description">Description</label>
+    </div>
+  </div>
+  <div class="form-row mb-3">
+    <div class="col">
+      <label for="category">Category</label>
+      <select id="category" class="browser-default custom-select" [(ngModel)]="selectedCategory">
+        <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label for="rating">Rating</label>
+      <select id="rating" class="browser-default custom-select" [(ngModel)]="editedRestaurant.rating">
+        <option *ngFor="let score of rating" [value]="score">{{score}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row mb-3">
+    <div class="col">
+      <label for="area">area</label>
+      <select id="area" class="browser-default custom-select" [(ngModel)]="editedRestaurant.address.area">
+        <option *ngFor="let area of areas" [value]="area">{{area}}</option>
+      </select>
+    </div>
+
+    <div class="col md-form mb-2">
+      <label for="city">City</label>
+      <input
+        mdbInput
+        [(ngModel)]="editedRestaurant.address.city"
+        type="text"
+        id="city"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-row mb-3">
+    <div class="col md-form mb-2">
+      <label for="street">Street</label>
+      <input
+        mdbInput
+        [(ngModel)]="editedRestaurant.address.street"
+        type="text"
+        id="street"
+        class="form-control"
+      />
+    </div>
+    <div class="col md-form mb-2">
+      <label for="House Number">House Number</label>
+      <input
+        mdbInput
+        [(ngModel)]="editedRestaurant.address.houseNumber"
+        type="number"
+        id="House Number"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="md-form mb-2">
+    <input
+      mdbInput
+      [(ngModel)]="editedRestaurant.imageUrl"
+      type="text"
+      id="imageUrl"
+      class="form-control"
+    />
+    <label for="imageUrl">image url</label>
+  </div>
+</div>
+<div class="modal-footer justify-content-center">
+  <button
+    type="button"
+    mdbBtn
+    color="secondary"
+    class="waves-light"
+    aria-label="Close"
+    (click)="frame.hide()"
+    mdbWavesEffect
+  >
+    Close
+  </button>
+  <button
+    type="button"
+    mdbBtn
+    color="primary"
+    class="relative waves-light"
+    mdbWavesEffect
+    (click)="updateRestaurant(editedRestaurant); frame.hide()"
+  >
+    Save
+  </button>
+</div>

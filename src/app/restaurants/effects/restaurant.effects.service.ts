@@ -4,6 +4,7 @@ import {Actions, createEffect, ofType, OnInitEffects} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {map, switchMap, switchMapTo} from 'rxjs/operators';
 import {
+  createRestaurant, createRestaurantSuccess,
   deleteRestaurant,
   deleteRestaurantSuccess,
   loadRestaurants,
@@ -42,7 +43,7 @@ export class RestaurantEffects implements OnInitEffects {
       switchMap(({update}) =>
         this.http.put(
           `https://food-dude.herokuapp.com/restaurants/${update._id}`,
-          omit({...update, category: update.category._id}, ['_id']),
+          omit({...update, category: update.category._id}, ['_id', 'reviewsBlocked']),
           {
             headers: {
               Authorization:
@@ -86,6 +87,25 @@ export class RestaurantEffects implements OnInitEffects {
         })
       ),
       map((restaurants: Restaurant[]) => loadRestaurantsSuccess({restaurants}))
+    )
+  );
+
+  createRestaurant$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(createRestaurant),
+      switchMap(({ create }) =>
+        this.http.post(
+          `https://food-dude.herokuapp.com/Restaurants`,
+          omit({...create, category: create.category._id}, ['_id', 'reviewsBlocked', 'reviews']),
+          {
+            headers: {
+              Authorization:
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+            },
+          }
+        )
+      ),
+      map((restaurant: Restaurant) => createRestaurantSuccess({ restaurant }))
     )
   );
 
