@@ -1,24 +1,29 @@
 <div class="modal-body d-flex flex-column">
+
   <div class="col mb-3">
-    <label class="title-label" for="name">Name</label>
-    <input
-      [(ngModel)]="editedCategory.name"
-      type="text"
-      id="name"
-      class="form-control"
-      placeholder="name"
-    />
+    <form [formGroup]="validatingForm">
+      <div class="md-form">
+        <input mdbInput mdbValidate type="text" id="name" class="form-control" formControlName="name"
+               [(ngModel)]="editedCategory.name">
+        <label for="name">Name</label>
+        <mdb-error *ngIf="nameInput.invalid"></mdb-error>
+        <mdb-success *ngIf="nameInput.valid"></mdb-success>
+      </div>
+    </form>
   </div>
+
   <div class="col mb-3">
-    <label class="title-label" for="description">Description</label>
-    <input
-      [(ngModel)]="editedCategory.description"
-      type="text"
-      id="description"
-      class="form-control"
-      placeholder="description"
-    />
+    <form [formGroup]="validatingForm">
+      <div class="md-form">
+        <input mdbInput mdbValidate type="text" id="description" class="form-control" formControlName="description"
+               [(ngModel)]="editedCategory.description">
+        <label for="description">Description</label>
+        <mdb-error *ngIf="descriptionInput.invalid"></mdb-error>
+        <mdb-success *ngIf="descriptionInput.valid"></mdb-success>
+      </div>
+    </form>
   </div>
+
   <div class="modal-footer justify-content-center">
     <button
       type="button"
@@ -37,6 +42,7 @@
       color="primary"
       class="relative waves-light"
       mdbWavesEffect
+      [disabled]="!isAllInputsValid()"
       (click)="updateCategory(editedCategory); frame.hide()"
     >
       Save

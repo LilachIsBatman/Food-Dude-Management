@@ -1,91 +1,103 @@
 <div class="modal-body d-flex flex-column">
-
-  <div class="form-row mb-3">
-    <div class="col md-form mb-2">
-      <input
-        mdbInput
-        [(ngModel)]="editedRestaurant.name"
-        type="text"
-        id="name"
-        class="form-control"
-      />
-      <label for="name">Name</label>
+  <div class="form-row">
+    <div class="col md-form my-0">
+      <form [formGroup]="validatingForm">
+        <div class="md-form">
+          <input mdbInput mdbValidate type="text" id="name" class="form-control" formControlName="name"
+                 [(ngModel)]="editedRestaurant.name">
+          <label for="name">Name</label>
+          <mdb-error *ngIf="nameInput.invalid"></mdb-error>
+          <mdb-success *ngIf="nameInput.valid"></mdb-success>
+        </div>
+      </form>
     </div>
-    <div class="col md-form mb-2">
-        <input
-          mdbInput
-          [(ngModel)]="editedRestaurant.description"
-          type="text"
-          id="description"
-          class="form-control"
-        />
-        <label for="description">Description</label>
+
+    <div class="col md-form my-0">
+      <form [formGroup]="validatingForm">
+        <div class="md-form">
+          <input mdbInput mdbValidate type="text" id="description" class="form-control" formControlName="description"
+                 [(ngModel)]="editedRestaurant.description">
+          <label for="description">Description</label>
+          <mdb-error *ngIf="descriptionInput.invalid"></mdb-error>
+          <mdb-success *ngIf="descriptionInput.valid"></mdb-success>
+        </div>
+      </form>
     </div>
   </div>
+
   <div class="form-row mb-3">
     <div class="col">
-      <label for="category">Category</label>
+      <label for="category" class="select-label">Category</label>
       <select id="category" class="browser-default custom-select" [(ngModel)]="selectedCategory">
         <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
       </select>
     </div>
     <div class="col">
-      <label for="rating">Rating</label>
+      <label for="rating" class="select-label">Rating</label>
       <select id="rating" class="browser-default custom-select" [(ngModel)]="editedRestaurant.rating">
         <option *ngFor="let score of rating" [value]="score">{{score}}</option>
       </select>
     </div>
   </div>
-  <div class="form-row mb-3">
+
+  <div class="form-row">
     <div class="col">
-      <label for="area">area</label>
+      <label for="area" class="select-label">area</label>
       <select id="area" class="browser-default custom-select" [(ngModel)]="editedRestaurant.address.area">
         <option *ngFor="let area of areas" [value]="area">{{area}}</option>
       </select>
     </div>
 
-    <div class="col md-form mb-2">
-      <label for="city">City</label>
-      <input
-        mdbInput
-        [(ngModel)]="editedRestaurant.address.city"
-        type="text"
-        id="city"
-        class="form-control"
-      />
+    <div class="col md-form my-0">
+      <form [formGroup]="validatingForm">
+        <div class="md-form">
+          <input mdbInput mdbValidate type="text" id="city" class="form-control" formControlName="city"
+                 [(ngModel)]="editedRestaurant.address.city">
+          <label for="city">City</label>
+          <mdb-error *ngIf="cityInput.invalid"></mdb-error>
+          <mdb-success *ngIf="cityInput.valid"></mdb-success>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="form-row mb-3">
-    <div class="col md-form mb-2">
-      <label for="street">Street</label>
-      <input
-        mdbInput
-        [(ngModel)]="editedRestaurant.address.street"
-        type="text"
-        id="street"
-        class="form-control"
-      />
+
+  <div class="form-row">
+
+    <div class="col md-form my-0">
+      <form [formGroup]="validatingForm">
+        <div class="md-form">
+          <input mdbInput mdbValidate type="text" id="street" class="form-control" formControlName="street"
+                 [(ngModel)]="editedRestaurant.address.street">
+          <label for="street">Street</label>
+          <mdb-error *ngIf="streetInput.invalid"></mdb-error>
+          <mdb-success *ngIf="streetInput.valid"></mdb-success>
+        </div>
+      </form>
     </div>
-    <div class="col md-form mb-2">
-      <label for="House Number">House Number</label>
-      <input
-        mdbInput
-        [(ngModel)]="editedRestaurant.address.houseNumber"
-        type="number"
-        id="House Number"
-        class="form-control"
-      />
+
+    <div class="col md-form my-0">
+      <form [formGroup]="validatingForm">
+        <div class="md-form">
+          <input mdbInput mdbValidate type="number" id="houseNumber" class="form-control" formControlName="houseNumber"
+                 [(ngModel)]="editedRestaurant.address.houseNumber">
+          <label for="houseNumber">House Number</label>
+          <mdb-error *ngIf="houseNumberInput.invalid"></mdb-error>
+          <mdb-success *ngIf="houseNumberInput.valid"></mdb-success>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="md-form mb-2">
-    <input
-      mdbInput
-      [(ngModel)]="editedRestaurant.imageUrl"
-      type="text"
-      id="imageUrl"
-      class="form-control"
-    />
-    <label for="imageUrl">image url</label>
+
+  <div class="md-form my-0">
+    <form [formGroup]="validatingForm">
+      <div class="md-form">
+        <input mdbInput mdbValidate type="text" id="imageUrl" class="form-control" formControlName="imageUrl"
+               [(ngModel)]="editedRestaurant.imageUrl">
+        <label for="imageUrl">Image Url</label>
+        <mdb-error *ngIf="imageUrlInput.invalid"></mdb-error>
+        <mdb-success *ngIf="imageUrlInput.valid"></mdb-success>
+      </div>
+    </form>
   </div>
 </div>
 <div class="modal-footer justify-content-center">
@@ -96,18 +108,13 @@
     class="waves-light"
     aria-label="Close"
     (click)="frame.hide()"
-    mdbWavesEffect
-  >
-    Close
-  </button>
+    mdbWavesEffect>Close</button>
   <button
     type="button"
     mdbBtn
     color="primary"
     class="relative waves-light"
     mdbWavesEffect
-    (click)="updateRestaurant(editedRestaurant); frame.hide()"
-  >
-    Save
-  </button>
+    [disabled]="!isAllInputsValid()"
+    (click)="updateRestaurant(editedRestaurant); frame.hide()">Save</button>
 </div>

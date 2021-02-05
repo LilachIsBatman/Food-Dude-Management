@@ -57,7 +57,7 @@ export class UserEditorComponent implements OnInit {
     return this.validatingForm.get('houseNumber');
   }
 
-  private isAllInputsValid(): boolean {
+  isAllInputsValid(): boolean {
    return this.firstNameInput.valid && this.lastNameInput.valid && this.emailInput.valid &&
     this.cityInput.valid && this.streetInput.valid && this.houseNumberInput.valid;
   }

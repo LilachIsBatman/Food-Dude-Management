@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChil
 import {MdbTableDirective, MdbTablePaginationComponent} from 'angular-bootstrap-md';
 import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
-import {takeUntil} from 'rxjs/operators';
+import { map, takeUntil} from 'rxjs/operators';
 import {Restaurant} from '../../entity/restaurant.interface';
 import {RestaurantState} from '../reducer/restaurant.reducer';
 import {getRestaurants} from '../selectors/review.selectors';
@@ -25,9 +25,10 @@ export class RestaurantTableComponent implements OnInit, OnDestroy, AfterViewIni
   restaurants$: Observable<Restaurant[]>;
   categories$: Observable<Category[]>;
   destroy$: Subject<void>;
-  areas = [AreaEnum.All, AreaEnum.CENTER, AreaEnum.NORTH, AreaEnum.SOUTH];
+  areas = [AreaEnum.CENTER, AreaEnum.NORTH, AreaEnum.SOUTH];
+  areasWithDefault = [AreaEnum.All, ...this.areas];
   rating = [1, 2, 3, 4, 5];
-  categories: Category[];
+  categoriesWithDefault$: Observable<Category[]>;
   searchNameText = '';
   selectedArea = AreaEnum.All;
   selectedCategory: string;
@@ -38,15 +39,12 @@ export class RestaurantTableComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
+    const emptyCategory = {name: 'all categories', description: '1', _id: '1'};
+    this.selectedCategory = emptyCategory.name;
     this.destroy$ = new Subject<void>();
     this.restaurants$ = this.store.pipe(select(getRestaurants));
     this.categories$ = this.store.pipe(select(getCategories));
-
-    this.categories$.pipe(takeUntil(this.destroy$)).subscribe((categories) => {
-      const emptyCategory = {name: 'all categories', description: '1', _id: '1'};
-      this.categories = [emptyCategory, ...categories];
-      this.selectedCategory = emptyCategory.name;
-    });
+    this.categoriesWithDefault$ = this.categories$.pipe(map(categories => [emptyCategory, ...categories]));
     this.restaurants$.pipe(takeUntil(this.destroy$)).subscribe((restaurants) => {
       this.restaurantTable.setDataSource(restaurants);
     });

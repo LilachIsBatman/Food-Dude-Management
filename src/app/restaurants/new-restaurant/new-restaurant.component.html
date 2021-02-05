@@ -24,7 +24,7 @@
         <h4 class="modal-title w-100">New Restaurant</h4>
       </div>
       <app-individual-restaurant [frame]="frame" [categories]="categories"
-                                 [selectedCategory]="newRestaurant.category.name" [rating]="rating"
+                                 [selectedCategory]="categories[0]?.name" [rating]="rating"
                                  [editedRestaurant]="newRestaurant" [areas]="areas"
                                  (restaurantUpdate)="createRestaurant($event)" ></app-individual-restaurant>
     </div>

@@ -23,8 +23,8 @@ export class NewRestaurantComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.destroy$ = new Subject<void>();
-    this.newRestaurant = {category: {_id: '', name: '', description: ''}, rating: 5, _id: '', description: '', name: '', imageUrl: '',
-    address: {area: AreaEnum.All, city: '', street: '', houseNumber: 0}};
+    this.newRestaurant = {category: this.getDefaultCategory(), rating: 5, _id: '', description: '', name: '', imageUrl: '',
+    address: {area: AreaEnum.CENTER, city: '', street: '', houseNumber: 0}};
   }
 
   createRestaurant(restaurant: Restaurant): void {
@@ -33,5 +33,10 @@ export class NewRestaurantComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  private getDefaultCategory(): Category {
+    console.log(this.categories);
+    return this.categories[0];
   }
 }
