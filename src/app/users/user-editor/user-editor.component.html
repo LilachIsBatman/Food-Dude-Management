@@ -31,82 +31,84 @@
         <h4 class="modal-title w-100">Edit User</h4>
       </div>
       <div class="modal-body d-flex flex-column">
-        <div class="form-row mb-4">
+        <div class="form-row my-3">
           <div class="col">
-            <label for="firstName">First name</label>
-            <input
-              [(ngModel)]="editedUser.firstName"
-              type="text"
-              id="firstName"
-              class="form-control"
-              placeholder="First name"
-            />
+          <form [formGroup]="validatingForm">
+            <div class="md-form">
+              <input mdbInput mdbValidate type="text" id="firstName" class="form-control" formControlName="firstName"
+                     [(ngModel)]="editedUser.firstName">
+              <label for="firstName">First Name</label>
+              <mdb-error *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"></mdb-error>
+              <mdb-success *ngIf="firstNameInput.valid && (firstNameInput.dirty || firstNameInput.touched)"></mdb-success>
+            </div>
+          </form>
           </div>
+
           <div class="col">
-            <label for="lastName">Last name</label>
-            <input
-              [(ngModel)]="editedUser.lastName"
-              type="text"
-              id="lastName"
-              class="form-control"
-              placeholder="Last name"
-            />
+            <form [formGroup]="validatingForm">
+              <div class="md-form">
+                <input mdbInput mdbValidate type="text" id="lastName" class="form-control" formControlName="lastName"
+                       [(ngModel)]="editedUser.lastName">
+                <label for="lastName">Last Name</label>
+                <mdb-error *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"></mdb-error>
+                <mdb-success *ngIf="lastNameInput.valid && (lastNameInput.dirty || lastNameInput.touched)"></mdb-success>
+              </div>
+            </form>
           </div>
         </div>
+
         <div class="md-form mb-3">
           <input
             type="email"
             id="defaultForm-email"
-            [formControl]="loginFormModalEmail"
+            [formControl]="emailInput"
             class="form-control"
             mdbInput
             mdbValidate
           />
           <label for="defaultForm-email">Email</label>
           <mdb-error
-            *ngIf="
-              loginFormModalEmail.invalid &&
-              (loginFormModalEmail.dirty || loginFormModalEmail.touched)
-            "
-          >
+            *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
           </mdb-error>
           <mdb-success
-            *ngIf="
-              loginFormModalEmail.valid &&
-              (loginFormModalEmail.dirty || loginFormModalEmail.touched)
-            "
-          >
+            *ngIf="emailInput.valid && (emailInput.dirty || emailInput.touched)">
           </mdb-success>
         </div>
-        <div class="md-form mb-3">
-          <input
-            mdbInput
-            [(ngModel)]="editedUser.address.city"
-            type="text"
-            id="city"
-            class="form-control"
-          />
-          <label for="city">City</label>
+
+        <div class="mb-3">
+          <form [formGroup]="validatingForm">
+            <div class="md-form">
+              <input mdbInput mdbValidate type="text" id="city" class="form-control" formControlName="city" required
+                     [(ngModel)]="editedUser.address.city">
+              <label for="city">City</label>
+              <mdb-error *ngIf="cityInput.invalid && (cityInput.dirty || cityInput.touched)"></mdb-error>
+              <mdb-success *ngIf="cityInput.valid && (cityInput.dirty || cityInput.touched)"></mdb-success>
+            </div>
+          </form>
         </div>
-        <div class="md-form mb-3">
-          <input
-            mdbInput
-            [(ngModel)]="editedUser.address.street"
-            type="text"
-            id="street"
-            class="form-control"
-          />
-          <label for="street">Street</label>
+
+        <div class="mb-3">
+          <form [formGroup]="validatingForm">
+            <div class="md-form">
+              <input mdbInput mdbValidate type="text" id="street" class="form-control" formControlName="street"
+                     [(ngModel)]="editedUser.address.street">
+              <label for="street">Street</label>
+              <mdb-error *ngIf="streetInput.invalid && (streetInput.dirty || streetInput.touched)"></mdb-error>
+              <mdb-success *ngIf="streetInput.valid && (streetInput.dirty || streetInput.touched)"></mdb-success>
+            </div>
+          </form>
         </div>
-        <div class="md-form mb-3">
-          <input
-            mdbInput
-            [(ngModel)]="editedUser.address.houseNumber"
-            type="number"
-            id="House Number"
-            class="form-control"
-          />
-          <label for="House Number">House Number</label>
+
+        <div class="mb-3">
+          <form [formGroup]="validatingForm">
+            <div class="md-form">
+              <input mdbInput mdbValidate type="number" id="houseNumber" class="form-control" formControlName="houseNumber"
+                     [(ngModel)]="editedUser.address.houseNumber">
+              <label for="houseNumber">House Number</label>
+              <mdb-error *ngIf="houseNumberInput.invalid && (houseNumberInput.dirty || houseNumberInput.touched)"></mdb-error>
+              <mdb-success *ngIf="houseNumberInput.valid && (houseNumberInput.dirty || houseNumberInput.touched)"></mdb-success>
+            </div>
+          </form>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
@@ -117,8 +119,7 @@
           class="waves-light"
           aria-label="Close"
           (click)="frame.hide()"
-          mdbWavesEffect
-        >
+          mdbWavesEffect>
           Close
         </button>
         <button
@@ -127,8 +128,8 @@
           color="primary"
           class="relative waves-light"
           mdbWavesEffect
-          (click)="updateUser(editedUser); frame.hide()"
-        >
+          [disabled]="!isAllInputsValid()"
+          (click)="updateUser(editedUser); frame.hide()">
           Save
         </button>
       </div>

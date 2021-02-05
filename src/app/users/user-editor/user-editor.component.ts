@@ -21,15 +21,44 @@ export class UserEditorComponent implements OnInit {
   ngOnInit(): void {
     this.editedUser = cloneDeep(this.user);
     this.validatingForm = new FormGroup({
-      loginFormModalEmail: new FormControl(this.editedUser.email, Validators.email),
+      email: new FormControl(this.editedUser.email, [Validators.email, Validators.required]),
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
+      street: new FormControl(null, Validators.required),
+      houseNumber: new FormControl(null, Validators.required)
     });
   }
 
-  get loginFormModalEmail(): AbstractControl {
-    return this.validatingForm.get('loginFormModalEmail');
+  updateUser(user: User): void {
+      this.userUpdate.emit(user);
   }
 
-  updateUser(user: User): void {
-    this.userUpdate.emit(user);
+  get firstNameInput(): AbstractControl {
+    return this.validatingForm.get('firstName');
+  }
+
+  get lastNameInput(): AbstractControl {
+    return this.validatingForm.get('lastName');
+  }
+
+  get emailInput(): AbstractControl {
+    return this.validatingForm.get('email');
+  }
+
+  get cityInput(): AbstractControl {
+    return this.validatingForm.get('city');
+  }
+  get streetInput(): AbstractControl {
+    return this.validatingForm.get('street');
+  }
+
+  get houseNumberInput(): AbstractControl {
+    return this.validatingForm.get('houseNumber');
+  }
+
+  private isAllInputsValid(): boolean {
+   return this.firstNameInput.valid && this.lastNameInput.valid && this.emailInput.valid &&
+    this.cityInput.valid && this.streetInput.valid && this.houseNumberInput.valid;
   }
 }
