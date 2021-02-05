@@ -24,7 +24,7 @@ export class NewRestaurantComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.destroy$ = new Subject<void>();
     this.newRestaurant = {category: this.getDefaultCategory(), rating: 5, _id: '', description: '', name: '', imageUrl: '',
-    address: {area: AreaEnum.CENTER, city: '', street: '', houseNumber: 0}};
+    address: {area: AreaEnum.CENTER, city: '', street: '', houseNumber: 1}, reviewsBlocked: false};
   }
 
   createRestaurant(restaurant: Restaurant): void {

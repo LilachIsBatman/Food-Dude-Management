@@ -9,4 +9,5 @@ export interface Restaurant {
   imageUrl: string;
   category: Category;
   address: Address;
+  reviewsBlocked: boolean;
 }
