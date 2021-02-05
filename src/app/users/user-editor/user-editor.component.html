@@ -96,7 +96,7 @@
         <div class="mb-3">
           <form [formGroup]="validatingForm">
             <div class="md-form">
-              <input mdbInput mdbValidate type="number" id="houseNumber" class="form-control" formControlName="houseNumber"
+              <input mdbInput mdbValidate type="number" min="1" id="houseNumber" class="form-control" formControlName="houseNumber"
                      [(ngModel)]="editedUser.address.houseNumber">
               <label for="houseNumber">House Number</label>
               <mdb-error *ngIf="houseNumberInput.invalid && (houseNumberInput.dirty || houseNumberInput.touched)"></mdb-error>

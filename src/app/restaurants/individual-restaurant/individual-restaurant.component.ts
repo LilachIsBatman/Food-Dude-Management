@@ -36,8 +36,8 @@ export class IndividualRestaurantComponent implements OnInit {
       description: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
       street: new FormControl(null, Validators.required),
-      houseNumber: new FormControl(null, Validators.required),
-      imageUrl: new FormControl(null, [Validators.required, this.uri()]),
+      houseNumber: new FormControl(null, [Validators.required, Validators.min(1)]),
+      imageUrl: new FormControl(null, [Validators.required, this.uriValidator()]),
     });
   }
 
@@ -83,7 +83,7 @@ export class IndividualRestaurantComponent implements OnInit {
     );
   }
 
-  private uri(): ValidatorFn {
+  private uriValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const { error } = Joi.string().uri().validate(control.value);
       return !error ? null : { error };

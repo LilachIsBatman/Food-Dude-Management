@@ -26,7 +26,7 @@ export class UserEditorComponent implements OnInit {
       lastName: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
       street: new FormControl(null, Validators.required),
-      houseNumber: new FormControl(null, Validators.required)
+      houseNumber: new FormControl(null, [Validators.required, Validators.min(1)])
     });
   }
 
