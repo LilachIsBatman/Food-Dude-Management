@@ -58,21 +58,15 @@
         </div>
 
         <div class="md-form mb-3">
-          <input
-            type="email"
-            id="defaultForm-email"
-            [formControl]="emailInput"
-            class="form-control"
-            mdbInput
-            mdbValidate
-          />
-          <label for="defaultForm-email">Email</label>
-          <mdb-error
-            *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
-          </mdb-error>
-          <mdb-success
-            *ngIf="emailInput.valid && (emailInput.dirty || emailInput.touched)">
-          </mdb-success>
+          <form [formGroup]="validatingForm">
+            <div class="md-form">
+              <input mdbInput mdbValidate type="text" id="email" class="form-control" formControlName="email"
+                     [(ngModel)]="editedUser.email">
+              <label for="email">Email</label>
+              <mdb-error *ngIf="emailInput.invalid"></mdb-error>
+              <mdb-success *ngIf="emailInput.valid"></mdb-success>
+            </div>
+          </form>
         </div>
 
         <div class="mb-3">
