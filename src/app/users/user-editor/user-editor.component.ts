@@ -49,6 +49,7 @@ export class UserEditorComponent implements OnInit {
   get cityInput(): AbstractControl {
     return this.validatingForm.get('city');
   }
+
   get streetInput(): AbstractControl {
     return this.validatingForm.get('street');
   }
