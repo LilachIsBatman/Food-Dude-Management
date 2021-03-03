@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../entity/user.interface';
-import {MDBModalService, MdbTableDirective} from 'angular-bootstrap-md';
+import { MdbTableDirective} from 'angular-bootstrap-md';
 import {AreaEnum} from '../../entity/area.enum';
 import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
@@ -9,7 +9,6 @@ import {getUsers} from '../selectors/user.selectors';
 import {takeUntil} from 'rxjs/operators';
 import {deleteUser, loadUsers, searchUsers, updateUser} from '../actions/user.actions';
 import {isNil, omitBy} from 'lodash';
-import {loadRestaurants} from '../../restaurants/actions/restaurant.action';
 
 @Component({
   selector: 'app-users-table',
@@ -30,7 +29,6 @@ export class UsersTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<UserState>,
-    private modalService: MDBModalService
   ) {
     this.store.dispatch(loadUsers());
   }
