@@ -10,7 +10,7 @@ import {
   updateUser,
   updateUserSuccess,
 } from '../actions/user.actions';
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import { map, switchMap, switchMapTo } from 'rxjs/operators';
 import { User } from '../../entity/user.interface';
 import { omit } from 'lodash';
@@ -40,7 +40,7 @@ export class UserEffects implements OnInitEffects {
       switchMap(({ update }) =>
         this.http.put(
           `https://food-dude.herokuapp.com/users/${update._id}`,
-          omit(update, ['_id']),
+          omit(update, ['_id', 'passwordHash', 'role']),
           {
             headers: {
               Authorization:
