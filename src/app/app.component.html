@@ -1,5 +1,5 @@
 <header class="head-nav">
-  <mdb-navbar SideClass="navbar navbar-expand-lg grey" [containerInside]="false">
+  <mdb-navbar *ngIf="!isInLogin()" SideClass="navbar navbar-expand-lg grey" [containerInside]="false">
     <mdb-navbar-brand>
       <a class="logo navbar-brand" href="#">
         <strong>FooDude</strong>

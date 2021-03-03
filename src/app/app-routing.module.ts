@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {UsersTableComponent} from './users/users-table/users-table.component';
-import {ReviewsTableComponent} from './reviews/reviews-table/reviews-table.component';
-import {RestaurantTableComponent} from './restaurants/restaurant-table/restaurant-table.component';
-import {CategoriesTableComponent} from './categories/categories-table/categories-table.component';
+import { UsersTableComponent } from './users/users-table/users-table.component';
+import { ReviewsTableComponent } from './reviews/reviews-table/reviews-table.component';
+import { RestaurantTableComponent } from './restaurants/restaurant-table/restaurant-table.component';
+import { CategoriesTableComponent } from './categories/categories-table/categories-table.component';
+import {LoginComponent} from './login/login.component';
 
-const routes: Routes = [ { path: '', component: UsersTableComponent },
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'users', component: UsersTableComponent },
   { path: 'review-table', component: ReviewsTableComponent },
   { path: 'restaurant-table', component: RestaurantTableComponent },
-  {path: 'categories-table', component: CategoriesTableComponent}];
+  { path: 'categories-table', component: CategoriesTableComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
