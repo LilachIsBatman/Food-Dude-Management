@@ -6,4 +6,5 @@ export interface User {
   lastName: string;
   email: string;
   address: Address;
+  role: 'admin' | 'viewer';
 }
