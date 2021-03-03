@@ -15,7 +15,7 @@ export class AuthEffects {
     this.actions.pipe(
       ofType(login),
       switchMap(({email, password}) =>
-        this.http.post(`https://food-dude.herokuapp.com/auth/login`, {
+        this.http.post(`https://food-dude.herokuapp.com/auth/login?onlyAdmin=true`, {
           email,
           password,
         }, {
@@ -29,7 +29,7 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions.pipe(
       ofType(loginSuccess),
-      tap(() => this.router.navigate(['/users']))
+      tap(() => this.router.navigate(['/users-table']))
     ), {
     dispatch: false
     }
