@@ -31,6 +31,9 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
 import { IndividualRestaurantComponent } from './restaurants/individual-restaurant/individual-restaurant.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NewRestaurantComponent } from './restaurants/new-restaurant/new-restaurant.component';
+import { LoginComponent } from './login/login.component';
+import {AuthEffects} from './login/effects/auth.effects.service';
+import {authReducer, authStateToken} from './login/reducer/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,7 @@ import { NewRestaurantComponent } from './restaurants/new-restaurant/new-restaur
     IndividualCategoryComponent,
     CreateCategoryComponent,
     IndividualRestaurantComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,8 +58,8 @@ import { NewRestaurantComponent } from './restaurants/new-restaurant/new-restaur
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
     StoreModule.forRoot({[userStateToken]: userReducer, [reviewStateToken]: reviewReducer,
-      [restaurantStateToken]: restaurantsReducer, [categoryStateToken]: categoriesReducer}),
-    EffectsModule.forRoot([UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects]),
+      [restaurantStateToken]: restaurantsReducer, [categoryStateToken]: categoriesReducer, [authStateToken]: authReducer}, ),
+    EffectsModule.forRoot([UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
@@ -64,7 +68,7 @@ import { NewRestaurantComponent } from './restaurants/new-restaurant/new-restaur
     FormsModule,
     NoopAnimationsModule
   ],
-  providers: [UsersTableComponent, UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, MDBModalRef],
+  providers: [UsersTableComponent, UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, MDBModalRef, AuthEffects],
   bootstrap: [AppComponent],
 })
 export class AppModule {
