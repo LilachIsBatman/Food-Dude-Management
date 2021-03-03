@@ -34,6 +34,7 @@ import { NewRestaurantComponent } from './restaurants/new-restaurant/new-restaur
 import { LoginComponent } from './login/login.component';
 import {AuthEffects} from './login/effects/auth.effects.service';
 import {authReducer, authStateToken} from './login/reducer/auth.reducer';
+import {AuthorizationService} from './authorization-service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import {authReducer, authStateToken} from './login/reducer/auth.reducer';
     FormsModule,
     NoopAnimationsModule
   ],
-  providers: [UsersTableComponent, UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, MDBModalRef, AuthEffects],
+  providers: [UsersTableComponent, UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, MDBModalRef, AuthEffects, AuthorizationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
