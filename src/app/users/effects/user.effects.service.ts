@@ -49,16 +49,17 @@ export class UserEffects implements OnInitEffects {
   );
 
   updateUser$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(updateUser),
-      switchMap(({ update }) =>
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(updateUser)),
+    ]).pipe(
+      switchMap(([token, { update }]) =>
         this.http.put(
           `https://food-dude.herokuapp.com/users/${update._id}`,
           omit(update, ['_id', 'passwordHash', 'role']),
           {
             headers: {
-              Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+              Authorization: token,
             },
           }
         )
@@ -68,13 +69,14 @@ export class UserEffects implements OnInitEffects {
   );
 
   deleteUser$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(deleteUser),
-      switchMap(({ id }) =>
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(deleteUser)),
+    ]).pipe(
+      switchMap(([token, { id }]) =>
         this.http.delete(`https://food-dude.herokuapp.com/Users/${id}`, {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+            Authorization: token,
           },
         })
       ),
@@ -83,14 +85,15 @@ export class UserEffects implements OnInitEffects {
   );
 
   searchUsers$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(searchUsers),
-      switchMap(({ params }: { params: any }) =>
-        this.http.get('https://food-dude.herokuapp.com/users/search', {
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(searchUsers)),
+    ]).pipe(
+      switchMap(([token, { params }]: [string, any]) =>
+        this.http.get<User[]>('https://food-dude.herokuapp.com/users/search', {
           params,
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+            Authorization: token,
           },
         })
       ),
