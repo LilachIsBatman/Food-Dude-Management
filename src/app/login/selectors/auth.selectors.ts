@@ -10,5 +10,5 @@ export const getErrorMassage = createSelector(
 );
 export const isUserAdmin = createSelector(
   getUser,
-  (user) => user.role === 'admin'
+  (user) => user?.role === 'admin'
 );

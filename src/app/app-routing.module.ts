@@ -5,13 +5,14 @@ import { ReviewsTableComponent } from './reviews/reviews-table/reviews-table.com
 import { RestaurantTableComponent } from './restaurants/restaurant-table/restaurant-table.component';
 import { CategoriesTableComponent } from './categories/categories-table/categories-table.component';
 import {LoginComponent} from './login/login.component';
+import {AdminGuard} from './admin-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'users-table', component: UsersTableComponent },
-  { path: 'review-table', component: ReviewsTableComponent },
-  { path: 'restaurant-table', component: RestaurantTableComponent },
-  { path: 'categories-table', component: CategoriesTableComponent },
+  { path: 'users-table', component: UsersTableComponent, canActivate: [AdminGuard] },
+  { path: 'review-table', component: ReviewsTableComponent, canActivate: [AdminGuard] },
+  { path: 'restaurant-table', component: RestaurantTableComponent, canActivate: [AdminGuard] },
+  { path: 'categories-table', component: CategoriesTableComponent, canActivate: [AdminGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
 ];
 
