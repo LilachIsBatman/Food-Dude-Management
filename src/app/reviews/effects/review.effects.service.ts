@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Actions, createEffect, ofType, OnInitEffects} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
-import {map, switchMap, switchMapTo} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {Review} from '../../entity/review.interface';
 import {
   deleteReview,
@@ -10,20 +10,23 @@ import {
   loadReview,
   loadReviewSuccess
 } from '../actions/review.action';
+import {combineLatest} from 'rxjs';
+import {AuthorizationService} from '../../authorization-service';
 
 @Injectable()
 export class ReviewEffects implements OnInitEffects {
-  constructor(private actions: Actions, private http: HttpClient) {
+  constructor(private actions: Actions, private http: HttpClient, private authorizationService: AuthorizationService) {
   }
 
   loadReview$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(loadReview),
-      switchMapTo(
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(loadReview)),
+    ]).pipe (
+      switchMap(([token]) =>
         this.http.get('https://food-dude.herokuapp.com/reviews', {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+            Authorization: token
           },
         })
       ),
@@ -32,15 +35,16 @@ export class ReviewEffects implements OnInitEffects {
   );
 
   deleteReview$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(deleteReview),
-      switchMap(({id}) =>
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(deleteReview)),
+    ]).pipe(
+      switchMap(([token, {id}]) =>
         this.http.delete(
           `https://food-dude.herokuapp.com/Reviews/${id}`,
           {
             headers: {
-              Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+              Authorization: token
             },
           }
         )
