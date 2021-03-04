@@ -10,19 +10,12 @@ import {
   updateUser,
   updateUserSuccess,
 } from '../actions/user.actions';
-import { Action, select, Store } from '@ngrx/store';
-import { map, switchMap, switchMapTo } from 'rxjs/operators';
+import { Action } from '@ngrx/store';
+import { map, switchMap } from 'rxjs/operators';
 import { User } from '../../entity/user.interface';
 import { omit } from 'lodash';
-import { UserState } from '../reducer/user.reducer';
-import { getErrorMassage } from '../../login/selectors/auth.selectors';
 import { AuthorizationService } from '../../authorization-service';
 import { combineLatest } from 'rxjs';
-import {
-  loadCategories,
-  loadCategoriesSuccess,
-} from '../../categories/actions/category.action';
-import { Category } from '../../entity/category.interface';
 
 @Injectable()
 export class UserEffects implements OnInitEffects {
