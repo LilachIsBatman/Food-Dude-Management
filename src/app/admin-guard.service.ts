@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate {
   constructor(private authorizationService: AuthorizationService, private store: Store<AuthState>) {
   }
 
-  canActivate(
+  public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
     return combineLatest([
