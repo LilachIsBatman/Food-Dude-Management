@@ -5,10 +5,12 @@ import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {login, loginFailed, loginSuccess} from '../actions/auth.action';
 import {of} from 'rxjs';
 import {Router} from '@angular/router';
+import {WebsocketService} from '../websocket-service';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions: Actions, private http: HttpClient, private router: Router) {
+  constructor(private actions: Actions, private http: HttpClient, private router: Router,
+              private webSocketService: WebsocketService ) {
   }
 
   login$ = createEffect(() =>
@@ -29,7 +31,10 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions.pipe(
       ofType(loginSuccess),
-      tap(() => this.router.navigate(['/users-table']))
+      map(({token}) => {
+        this.router.navigate(['/users-table']);
+        this.webSocketService.openWebsocket(token);
+      })
     ), {
     dispatch: false
     }
