@@ -6,11 +6,11 @@ import { select, Store } from '@ngrx/store';
 import { UserState } from '../../users/reducer/user.reducer';
 import { map, takeUntil } from 'rxjs/operators';
 import { getReviews } from '../selectors/review.selectors';
-import { deleteReview } from '../actions/review.action';
+import {deleteReview, searchReviewByRestaurantName} from '../actions/review.action';
 import { RestaurantState } from '../../restaurants/reducer/restaurant.reducer';
 import { Restaurant } from '../../entity/restaurant.interface';
 import { getRestaurants } from '../../restaurants/selectors/review.selectors';
-import { keyBy } from 'lodash';
+import {keyBy} from 'lodash';
 
 @Component({
   selector: 'app-reviews-table',
@@ -20,6 +20,7 @@ import { keyBy } from 'lodash';
 export class ReviewsTableComponent implements OnInit, OnDestroy {
   @ViewChild(MdbTableDirective, { static: true })
   reviewTable: MdbTableDirective;
+  searchNameText = '';
   headElements = [
     'User First Name',
     'User Last Name',
@@ -61,5 +62,13 @@ export class ReviewsTableComponent implements OnInit, OnDestroy {
 
   deleteReview(id: string): void {
     this.store.dispatch(deleteReview({ id }));
+  }
+
+  search(): void {
+    this.store.dispatch(
+      searchReviewByRestaurantName({
+        restaurantName: this.searchNameText || undefined
+      })
+    );
   }
 }

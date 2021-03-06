@@ -1,5 +1,18 @@
 <h2>Review Management</h2>
 
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="md-form mx-3">
+      <input type="text"
+             [(ngModel)]="searchNameText"
+             class="form-control"
+             id="search-name"
+             mdbInput/>
+      <label for="search-name">Restaurant Name</label>
+    </div>
+    <button class="mx-3" type="button" mdbBtn color="dark" mdbWavesEffect size="sm" (click)="search()">Search</button>
+  </div>
+</div>
 <table mdbTable class="table" mdbTableScroll scrollY="true" maxHeight="500">
   <thead class="grey lighten-1 black-text">
   <tr>
@@ -10,7 +23,7 @@
   <tr mdbTableCol *ngFor="let review of reviews$ | async">
     <th scope="row">{{review.user.firstName}}</th>
     <td>{{review.user.firstName}}</td>
-    <td>{{review.restaurant.name}}</td>
+    <td>{{review.restaurant?.name}}</td>
     <td>{{review.content}}</td>
     <td>
       <span class="table-remove">

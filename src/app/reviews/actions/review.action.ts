@@ -11,3 +11,9 @@ export const deleteReviewSuccess = createAction(
   '[Review] delete review success',
   props<{ review: Review }>()
 );
+
+export const searchReviewByRestaurantName = createAction(
+  '[Review] search review by restaurant name',
+  props<{ restaurantName: string }>()
+);
+

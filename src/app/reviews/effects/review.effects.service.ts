@@ -8,7 +8,7 @@ import {
   deleteReview,
   deleteReviewSuccess,
   loadReview,
-  loadReviewSuccess
+  loadReviewSuccess, searchReviewByRestaurantName
 } from '../actions/review.action';
 import {combineLatest} from 'rxjs';
 import {AuthorizationService} from '../../authorization-service';
@@ -50,6 +50,23 @@ export class ReviewEffects implements OnInitEffects {
         )
       ),
       map((review: Review) => deleteReviewSuccess({review}))
+    )
+  );
+
+  searchReviewByRestaurantName$ = createEffect(() =>
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(searchReviewByRestaurantName)),
+    ]).pipe(
+      switchMap(([token, { restaurantName }]: [string, any]) =>
+        this.http.get<Review[]>('https://food-dude.herokuapp.com/reviews', {
+          params: {restaurantName},
+          headers: {
+            Authorization: token,
+          },
+        })
+      ),
+      map((reviews: Review[]) => loadReviewSuccess({ reviews }))
     )
   );
 
