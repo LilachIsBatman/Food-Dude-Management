@@ -49,7 +49,7 @@ export class UserEffects implements OnInitEffects {
       switchMap(([token, { update }]) =>
         this.http.put(
           `https://food-dude.herokuapp.com/users/${update._id}`,
-          omit(update, ['_id', 'passwordHash', 'role']),
+          omit(update, ['_id', 'passwordHash']),
           {
             headers: {
               Authorization: token,

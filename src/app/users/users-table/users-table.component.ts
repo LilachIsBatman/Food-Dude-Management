@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../entity/user.interface';
-import { MdbTableDirective} from 'angular-bootstrap-md';
+import {MdbTableDirective} from 'angular-bootstrap-md';
 import {AreaEnum} from '../../entity/area.enum';
 import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
@@ -17,7 +17,7 @@ import {isNil, omitBy} from 'lodash';
 })
 export class UsersTableComponent implements OnInit, OnDestroy {
   @ViewChild(MdbTableDirective, { static: true }) userTable: MdbTableDirective;
-  headElements = ['First Name', 'Last Name', 'Email', 'City', 'Edit', 'Delete'];
+  headElements = ['First Name', 'Last Name', 'Email', 'City', 'Admin', 'Edit', 'Delete'];
   users$: Observable<User[]>;
   searchFirstNameText = '';
   searchLastNameText = '';
@@ -73,5 +73,9 @@ export class UsersTableComponent implements OnInit, OnDestroy {
 
   getSearchableArea(): AreaEnum {
     return this.selectedArea === AreaEnum.All ? undefined : this.selectedArea;
+  }
+
+  updateAdmin(user: User): void {
+    this.onUserUpdate({...user, role: (user.role === 'admin') ? 'viewer' : 'admin'});
   }
 }

@@ -42,11 +42,16 @@
     <td>{{user.email}}</td>
     <td>{{user.address.city}}</td>
     <td>
+      <span>
+       <mdb-icon class="click-icon" [ngClass]="{'admin': user.role === 'admin'}" fas icon="crown" (click)="updateAdmin(user)"></mdb-icon>
+      </span>
+    </td>
+    <td>
         <app-user-editor [user]="user" (userUpdate)="onUserUpdate($event)"></app-user-editor>
     </td>
     <td>
       <span>
-        <mdb-icon class="user-icon" far icon="trash-alt" (click)="deleteUser(user._id)"></mdb-icon>
+        <mdb-icon class="click-icon" far icon="trash-alt" (click)="deleteUser(user._id)"></mdb-icon>
       </span>
     </td>
   </tr>
