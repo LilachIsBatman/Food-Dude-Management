@@ -31,7 +31,7 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions.pipe(
       ofType(loginSuccess),
-      map(({token}) => {
+      tap(({token}) => {
         this.router.navigate(['/users-table']);
         this.webSocketService.openWebsocket(token);
       })
