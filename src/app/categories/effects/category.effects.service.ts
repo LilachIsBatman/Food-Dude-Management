@@ -46,13 +46,14 @@ export class CategoryEffects implements OnInitEffects {
   );
 
   deleteCategory$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(deleteCategory),
-      switchMap(({ id }) =>
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(deleteCategory)),
+    ]).pipe(
+      switchMap(([token, { id }]) =>
         this.http.delete(`https://food-dude.herokuapp.com/Categories/${id}`, {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+            Authorization: token,
           },
         })
       ),
@@ -61,16 +62,17 @@ export class CategoryEffects implements OnInitEffects {
   );
 
   updateCategory$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(updateCategory),
-      switchMap(({ update }) =>
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(updateCategory)),
+    ]).pipe(
+      switchMap(([token, { update }]) =>
         this.http.put(
           `https://food-dude.herokuapp.com/Categories/${update._id}`,
           omit(update, ['_id']),
           {
             headers: {
-              Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+              Authorization: token
             },
           }
         )
@@ -80,16 +82,17 @@ export class CategoryEffects implements OnInitEffects {
   );
 
   createCategory$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(createCategory),
-      switchMap(({ create }) =>
+    combineLatest([
+      this.authorizationService.getToken$(),
+      this.actions.pipe(ofType(createCategory)),
+    ]).pipe(
+      switchMap(([token, { create }]) =>
         this.http.post(
           `https://food-dude.herokuapp.com/Categories`,
           omit(create, ['_id']),
           {
             headers: {
-              Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmQ2ODBhODgzZWY0YzA2MzQ5NWFhNDMiLCJlbWFpbCI6InRvbUBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0b20iLCJsYXN0TmFtZSI6InBvcmF0IiwiYWRkcmVzcyI6eyJhcmVhIjoiY2VudGVyIiwiY2l0eSI6IlRlbCBBdml2Iiwic3RyZWV0IjoiS2FwbGFuIiwiaG91c2VOdW1iZXIiOjF9LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDg5OTA5NTZ9.rmP05WiEaqH80V6KXOaU2-YYIIHr5joX3MFbCreXtYA',
+              Authorization: token
             },
           }
         )
