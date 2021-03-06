@@ -4,7 +4,7 @@ import {AuthorizationService} from './authorization-service';
 import {Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {AuthState} from './login/reducer/auth.reducer';
-import {getConnectedUsers} from './login/selectors/auth.selectors';
+import {getConnectedUsersAmount} from './login/selectors/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -12,19 +12,16 @@ import {getConnectedUsers} from './login/selectors/auth.selectors';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  token: Observable<string>;
+  connectedUserAmount: Observable<number>;
+
   constructor(private router: Router, private authorizationService: AuthorizationService,
               private store: Store<AuthState>) {
+    this.token = this.authorizationService.getToken$();
+    this.connectedUserAmount = this.store.pipe(select(getConnectedUsersAmount));
   }
 
   isInLogin(): boolean {
     return this.router.url.includes('login') ;
-  }
-
-  isUserLogin(): Observable<string> {
-    return this.authorizationService.getToken$();
-  }
-
-  getConnectedUsersAmount(): Observable<number> {
-    return this.store.pipe(select(getConnectedUsers));
   }
 }

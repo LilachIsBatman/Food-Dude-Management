@@ -12,4 +12,4 @@ export const isUserAdmin = createSelector(
   getUser,
   (user) => user?.role === 'admin'
 );
-export const getConnectedUsers = createSelector(getAuthState, (state) => state.connectedUsersAmount);
+export const getConnectedUsersAmount = createSelector(getAuthState, (state) => state.connectedUsersAmount);
