@@ -4,7 +4,10 @@ import {
   createSelector,
   on,
 } from '@ngrx/store';
-import { loadAverageRatingSuccess } from '../actions/statistics.action';
+import {
+  loadAverageRatingSuccess,
+  loadRestaurantShareSuccess,
+} from '../actions/statistics.action';
 
 export const statisticsToken = 'statistics';
 
@@ -29,6 +32,10 @@ export const statisticsReducer = createReducer(
   on(loadAverageRatingSuccess, (state, { data }) => ({
     ...state,
     averageRating: data,
+  })),
+  on(loadRestaurantShareSuccess, (state, { data }) => ({
+    ...state,
+    restaurantShare: data,
   }))
 );
 
@@ -36,4 +43,8 @@ export const getStatisticsState = createFeatureSelector(statisticsToken);
 export const getAverageStatistics = createSelector(
   getStatisticsState,
   (state: StatisticsState) => state.averageRating
+);
+export const getRestaurantShareStatistics = createSelector(
+  getStatisticsState,
+  (state: StatisticsState) => state.restaurantShare
 );

@@ -7,6 +7,7 @@ import { CategoriesTableComponent } from './categories/categories-table/categori
 import { LoginComponent } from './login/login.component';
 import { AdminGuard } from './admin-guard.service';
 import { AverageRatingComponent } from './statistics/average-rating/average-rating.component';
+import { RestaurantShareComponent } from './statistics/restaurant-share/restaurant-share.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -35,7 +36,7 @@ const routes: Routes = [
     children: [
       {
         path: 'restaurants-share',
-        component: CategoriesTableComponent,
+        component: RestaurantShareComponent,
         canActivate: [AdminGuard],
       },
       {
