@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { loginFailed, loginSuccess } from '../actions/auth.action';
+import {connectedUsers, loginFailed, loginSuccess} from '../actions/auth.action';
 import { User } from '../../entity/user.interface';
 import jwt_decode from 'jwt-decode';
 
 export interface AuthState {
+  connectedUsersAmount: number;
   token?: string;
   user?: User;
   error?: string;
@@ -12,6 +13,7 @@ export interface AuthState {
 export const authStateToken = 'auth';
 
 const initialState: AuthState = {
+  connectedUsersAmount: 0,
   token: undefined,
   user: undefined,
   error: undefined,
@@ -30,5 +32,9 @@ export const authReducer = createReducer(
     error,
     token: undefined,
     user: undefined,
+  })),
+  on(connectedUsers, (state, {users}) => ({
+    ...state,
+    connectedUsersAmount: users.length,
   }))
 );
