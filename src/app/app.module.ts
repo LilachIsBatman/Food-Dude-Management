@@ -29,7 +29,7 @@ import { CategoriesEditorComponent } from './categories/categories-editor/catego
 import { IndividualCategoryComponent } from './categories/individual-category/individual-category.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { IndividualRestaurantComponent } from './restaurants/individual-restaurant/individual-restaurant.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { NewRestaurantComponent } from './restaurants/new-restaurant/new-restaurant.component';
 import { LoginComponent } from './login/login.component';
 import {AuthEffects} from './login/effects/auth.effects.service';
@@ -37,6 +37,7 @@ import {authReducer, authStateToken} from './login/reducer/auth.reducer';
 import {AuthorizationService} from './authorization-service';
 import {WebsocketService} from './login/websocket-service';
 import { PermissionErrorComponent } from './login/permission-error/permission-error/permission-error.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,10 @@ import { PermissionErrorComponent } from './login/permission-error/permission-er
     }),
     ReactiveFormsModule,
     FormsModule,
-    NoopAnimationsModule
+    CommonModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [UsersTableComponent, UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, MDBModalRef,
     AuthEffects, AuthorizationService, WebsocketService],
