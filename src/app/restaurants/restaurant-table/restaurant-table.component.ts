@@ -12,6 +12,7 @@ import {CategoryState} from '../../categories/reducer/category.reducer';
 import {Category} from '../../entity/category.interface';
 import {getCategories} from '../../categories/selectors/category.selectors';
 import {isNil, omitBy} from 'lodash';
+import {WebsocketService} from '../../login/websocket-service';
 
 @Component({
   selector: 'app-restaurant-table',
@@ -21,7 +22,7 @@ import {isNil, omitBy} from 'lodash';
 export class RestaurantTableComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, {static: true}) restaurantTable: MdbTableDirective;
-  headElements = ['Name', 'Category', 'Rating', 'Description', 'Address', 'Block Comments', 'Edit', 'Delete'];
+  headElements = ['Name', 'Category', 'Rating', 'Description', 'Address', 'Block Review', 'Edit', 'Delete'];
   restaurants$: Observable<Restaurant[]>;
   categories$: Observable<Category[]>;
   destroy$: Subject<void>;
@@ -34,7 +35,8 @@ export class RestaurantTableComponent implements OnInit, OnDestroy, AfterViewIni
   selectedCategory: string;
   selectedRating = 1;
 
-  constructor(private store: Store<RestaurantState | CategoryState>, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private store: Store<RestaurantState | CategoryState>, private changeDetectorRef: ChangeDetectorRef,
+              private websocketService: WebsocketService) {
     this.store.dispatch(loadRestaurants());
   }
 
@@ -95,5 +97,21 @@ export class RestaurantTableComponent implements OnInit, OnDestroy, AfterViewIni
 
   getSearchableCategory(): string {
     return this.selectedCategory === 'all categories' ? undefined : this.selectedCategory;
+  }
+
+  onBlockRestaurantClick(restaurant: Restaurant): void {
+    if (restaurant.reviewsBlocked) {
+      this.allowRestaurantReviews(restaurant);
+    } else {
+      this.blockRestaurantReviews(restaurant);
+    }
+  }
+
+  private blockRestaurantReviews(restaurant: Restaurant): void {
+    this.websocketService.blockRestaurantReviews(restaurant._id);
+  }
+
+  private allowRestaurantReviews(restaurant: Restaurant): void {
+    this.websocketService.allowRestaurantReviews(restaurant._id);
   }
 }

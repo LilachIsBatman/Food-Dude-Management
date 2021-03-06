@@ -45,7 +45,8 @@
     <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{restaurant.address.city + ", " + restaurant.address.street + ", " + restaurant.address.houseNumber}}</td>
     <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
       <span>
-        <mdb-icon class="click-icon" fas icon="comment-slash"></mdb-icon>
+        <mdb-icon class="click-icon" fas icon="comment-slash" (click)="onBlockRestaurantClick(restaurant)"
+                  [ngClass]="{'blocked-review' : restaurant.reviewsBlocked}"></mdb-icon>
       </span>
     </td>
     <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">

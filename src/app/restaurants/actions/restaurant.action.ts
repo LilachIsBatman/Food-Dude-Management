@@ -46,3 +46,8 @@ export const createRestaurantSuccess = createAction(
   '[Restaurant] create restaurant success',
   props<{ restaurant: Restaurant }>()
 );
+
+export const updateRestaurantBlockReviews = createAction(
+  '[Restaurants] update restaurant block reviews',
+  props<{ restaurantId: string, reviewsBlocked: boolean }>()
+);

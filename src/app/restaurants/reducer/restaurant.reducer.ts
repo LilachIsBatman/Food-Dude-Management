@@ -4,6 +4,7 @@ import {
   createRestaurantSuccess,
   deleteRestaurantSuccess,
   loadRestaurantsSuccess,
+  updateRestaurantBlockReviews,
   updateRestaurantSuccess
 } from '../actions/restaurant.action';
 
@@ -27,4 +28,8 @@ export const restaurantsReducer = createReducer(
     restaurants: state.restaurants.filter(currentRestaurant => currentRestaurant._id !== restaurant._id)
   })),
   on(createRestaurantSuccess, (state, {restaurant}) => ({...state, restaurants: [...state.restaurants, restaurant]})),
+  on(updateRestaurantBlockReviews, (state, { restaurantId, reviewsBlocked }) => ({
+    ...state,
+    restaurants: state.restaurants.map((restaurant) => (restaurant._id === restaurantId ? {...restaurant, reviewsBlocked} : restaurant)),
+  }))
 );
