@@ -36,7 +36,6 @@ export class NewRestaurantComponent implements OnInit, OnDestroy {
   }
 
   private getDefaultCategory(): Category {
-    console.log(this.categories);
     return this.categories[0];
   }
 }
