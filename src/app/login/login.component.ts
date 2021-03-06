@@ -4,7 +4,12 @@ import { AuthState } from './reducer/auth.reducer';
 import { login } from './actions/auth.action';
 import { getErrorMassage } from './selectors/auth.selectors';
 import { Observable, Subject } from 'rxjs';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +23,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   constructor(private store: Store<AuthState>) {
     this.error$ = this.store.pipe(select(getErrorMassage));
+    this.store.dispatch(login({ email: 'tom@gmail.com', password: '123456' }));
   }
 
   login(email: string, password: string): void {
@@ -32,7 +38,10 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.destroy$ = new Subject<void>();
     this.validatingForm = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
   }
 

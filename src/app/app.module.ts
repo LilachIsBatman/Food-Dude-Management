@@ -38,6 +38,11 @@ import {AuthorizationService} from './authorization-service';
 import {WebsocketService} from './login/websocket-service';
 import { PermissionErrorComponent } from './login/permission-error/permission-error/permission-error.component';
 import { ToastrModule } from 'ngx-toastr';
+import { StatisticsEffect } from './statistics/effects/statistics.effect';
+import {
+  statisticsReducer,
+  statisticsToken,
+} from './statistics/reducers/statistics.reducer';
 
 @NgModule({
   declarations: [
@@ -63,8 +68,8 @@ import { ToastrModule } from 'ngx-toastr';
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
     StoreModule.forRoot({[userStateToken]: userReducer, [reviewStateToken]: reviewReducer,
-      [restaurantStateToken]: restaurantsReducer, [categoryStateToken]: categoriesReducer, [authStateToken]: authReducer}, ),
-    EffectsModule.forRoot([UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, AuthEffects]),
+      [restaurantStateToken]: restaurantsReducer, [categoryStateToken]: categoriesReducer, [authStateToken]: authReducer, [statisticsToken]: statisticsReducer} , ),
+    EffectsModule.forRoot([UserEffects, ReviewEffects, RestaurantEffects, CategoryEffects, AuthEffects, StatisticsEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
