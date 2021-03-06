@@ -40,14 +40,10 @@
     <div class="full-bg-img">
       <div class="mask rgba-purple-light flex-center">
         <div class="container text-center white-text wow fadeInUp">
-          <div *ngIf="!(isUserLogin() | async) && !isInLogin()" class="notLoggedIn">
-            <mdb-icon fas icon="heart-broken" class="mx-1"></mdb-icon>
-            <mdb-icon fas icon="hamburger" class="mx-1"></mdb-icon>
-            you do not have permissions, please login
-            <mdb-icon fas icon="hamburger" class="mx-1"></mdb-icon>
-            <mdb-icon fas icon="heart-broken" class="mx-1"></mdb-icon>
-          </div>
-          <router-outlet></router-outlet>
+          <app-permission-error *ngIf="(!(isUserLogin() | async) && !isInLogin()); else routerOutlet"></app-permission-error>
+          <ng-template #routerOutlet>
+            <router-outlet></router-outlet>
+          </ng-template>
         </div>
       </div>
     </div>

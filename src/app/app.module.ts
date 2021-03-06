@@ -36,6 +36,7 @@ import {AuthEffects} from './login/effects/auth.effects.service';
 import {authReducer, authStateToken} from './login/reducer/auth.reducer';
 import {AuthorizationService} from './authorization-service';
 import {WebsocketService} from './login/websocket-service';
+import { PermissionErrorComponent } from './login/permission-error/permission-error/permission-error.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {WebsocketService} from './login/websocket-service';
     CreateCategoryComponent,
     IndividualRestaurantComponent,
     LoginComponent,
+    PermissionErrorComponent,
   ],
   imports: [
     BrowserModule,
