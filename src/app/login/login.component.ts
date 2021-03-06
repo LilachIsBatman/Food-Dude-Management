@@ -23,7 +23,6 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   constructor(private store: Store<AuthState>) {
     this.error$ = this.store.pipe(select(getErrorMassage));
-    this.store.dispatch(login({ email: 'tom@gmail.com', password: '123456' }));
   }
 
   login(email: string, password: string): void {
