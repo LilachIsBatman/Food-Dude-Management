@@ -25,7 +25,7 @@ export class StatisticsEffect {
       exhaustMap(([token]) =>
         this.http
           .get(
-            'http://food-dude.herokuapp.com/categories/statistics/category-to-average-rating',
+            'http://food-dude.herokuapp.com/categories/statistics/category-average-rating',
             {
               headers: {
                 Authorization: token,
@@ -33,7 +33,7 @@ export class StatisticsEffect {
             }
           )
           .pipe(
-            map((data: AverageRatingStatistics) =>
+            map((data: AverageRatingStatistics[]) =>
               loadAverageRatingSuccess({ data })
             )
           )
@@ -49,7 +49,7 @@ export class StatisticsEffect {
       exhaustMap(([token]) =>
         this.http
           .get(
-            'http://food-dude.herokuapp.com/categories/statistics/category-to-restaurant-share',
+            'http://food-dude.herokuapp.com/categories/statistics/category-restaurant-share',
             {
               headers: {
                 Authorization: token,
@@ -57,7 +57,7 @@ export class StatisticsEffect {
             }
           )
           .pipe(
-            map((data: RestaurantShareStatistics) =>
+            map((data: RestaurantShareStatistics[]) =>
               loadRestaurantShareSuccess({ data })
             )
           )

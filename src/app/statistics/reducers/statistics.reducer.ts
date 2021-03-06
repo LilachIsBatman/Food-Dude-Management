@@ -11,20 +11,26 @@ import {
 
 export const statisticsToken = 'statistics';
 
-export type AverageRatingStatistics = Record<string, number>;
-export type RestaurantShareStatistics = Record<
-  string,
-  { amount: number; percentage: number }
->;
+export interface AverageRatingStatistics {
+  id: string;
+  name: string;
+  averageRating: number;
+}
+export interface RestaurantShareStatistics {
+  name: string;
+  amount: number;
+  percentage: number;
+  id: string;
+}
 
 export interface StatisticsState {
-  averageRating: AverageRatingStatistics;
-  restaurantShare: RestaurantShareStatistics;
+  averageRating: AverageRatingStatistics[];
+  restaurantShare: RestaurantShareStatistics[];
 }
 
 export const statisticsInitialState: StatisticsState = {
-  averageRating: {},
-  restaurantShare: {},
+  averageRating: [],
+  restaurantShare: [],
 };
 
 export const statisticsReducer = createReducer(

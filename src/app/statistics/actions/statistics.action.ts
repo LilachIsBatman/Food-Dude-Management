@@ -18,7 +18,7 @@ export const loadAverageRating = createAction(
 );
 export const loadAverageRatingSuccess = createAction(
   StatisticsActionTypes.LOAD_AVERAGE_RATING_SUCCESS,
-  props<{ data: AverageRatingStatistics }>()
+  props<{ data: AverageRatingStatistics[] }>()
 );
 
 export const loadRestaurantShare = createAction(
@@ -26,5 +26,5 @@ export const loadRestaurantShare = createAction(
 );
 export const loadRestaurantShareSuccess = createAction(
   StatisticsActionTypes.LOAD_RESTAURANT_SHARE_SUCCESS,
-  props<{ data: RestaurantShareStatistics }>()
+  props<{ data: RestaurantShareStatistics[] }>()
 );

@@ -47,11 +47,11 @@ export class AverageRatingComponent implements OnInit {
       .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
   }
 
-  private drawBars(data: AverageRatingStatistics): void {
+  private drawBars(data: AverageRatingStatistics[]): void {
     // Create the X-axis band scale
     const x = scaleBand()
       .range([0, this.width])
-      .domain(Object.keys(data))
+      .domain(data.map((d) => d.name))
       .padding(0.2);
 
     // Draw the X-axis on the DOM
@@ -61,7 +61,8 @@ export class AverageRatingComponent implements OnInit {
       .call(axisBottom(x))
       .selectAll('text')
       .attr('transform', 'translate(-10,0)rotate(-45)')
-      .style('text-anchor', 'end');
+      .style('text-anchor', 'end')
+      .style('font-size', 15);
 
     // Create the Y-axis band scale
     const y = scaleLinear().domain([1, 5]).range([this.height, 0]);
@@ -72,13 +73,13 @@ export class AverageRatingComponent implements OnInit {
     // Create and fill the bars
     this.svg
       .selectAll('bars')
-      .data(Object.keys(data))
+      .data(data)
       .enter()
       .append('rect')
-      .attr('x', (d) => x(d))
-      .attr('y', (d) => y(data[d]))
+      .attr('x', (d: AverageRatingStatistics) => x(d.name))
+      .attr('y', (d: AverageRatingStatistics) => y(d.averageRating))
       .attr('width', x.bandwidth())
-      .attr('height', (d) => this.height - y(data[d]))
-      .attr('fill', '#d04a35');
+      .attr('height', (d) => this.height - y(d.averageRating))
+      .attr('fill', '#44449e');
   }
 }

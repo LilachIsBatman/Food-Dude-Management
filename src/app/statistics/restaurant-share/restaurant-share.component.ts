@@ -50,13 +50,13 @@ export class RestaurantShareComponent implements OnInit {
       );
   }
 
-  private createColors(data: RestaurantShareStatistics): void {
+  private createColors(data: RestaurantShareStatistics[]): void {
     this.colors = scaleOrdinal()
-      .domain(Object.values(data).map((d) => d.amount.toString()))
+      .domain(data.map((d) => d.amount.toString()))
       .range(['#c7d3ec', '#a5b8db', '#879cc4', '#677795', '#5a6782']);
   }
 
-  private drawChart(data: RestaurantShareStatistics): void {
+  private drawChart(data: RestaurantShareStatistics[]): void {
     // Compute the position of each group on the pie:
     const pieData = pie<{ amount: number; percentage: number }>().value((d) =>
       Number(d.percentage)
@@ -65,7 +65,7 @@ export class RestaurantShareComponent implements OnInit {
     // Build the pie chart
     this.svg
       .selectAll('pieces')
-      .data(pieData(Object.values(data)))
+      .data(pieData(data))
       .enter()
       .append('path')
       .attr('d', arc().innerRadius(0).outerRadius(this.radius))
@@ -78,11 +78,11 @@ export class RestaurantShareComponent implements OnInit {
 
     this.svg
       .selectAll('pieces')
-      .data(pieData(Object.values(data)))
+      .data(pieData(data))
       .enter()
       .append('text')
-      .text((d: { data: { amount: number; percentage: number } }) =>
-        d.data.amount.toString()
+      .text((d: { data: { amount: number; percentage: number, name: string } }) =>
+        `${d.data.name.toString()} - ${d.data.amount}`
       )
       .attr('transform', (d) => 'translate(' + labelLocation.centroid(d) + ')')
       .style('text-anchor', 'middle')
