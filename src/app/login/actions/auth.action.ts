@@ -10,5 +10,5 @@ export const loginFailed = createAction(
   '[Auth] login failed',
   props<{ error: string }>()
 );
-export const connectedUsers = createAction('[Auth] try connectedUsers', props<{ users: User[] }>());
+export const connectedUsers = createAction('[Auth] connectedUsers', props<{ users: User[] }>());
 
