@@ -38,6 +38,7 @@ import {AuthorizationService} from './authorization-service';
 import {WebsocketService} from './login/websocket-service';
 import { PermissionErrorComponent } from './login/permission-error/permission-error/permission-error.component';
 import { ToastrModule } from 'ngx-toastr';
+import { HoverDirective } from './hover.directive';
 import { StatisticsEffect } from './statistics/effects/statistics.effect';
 import {
   statisticsReducer,
@@ -60,6 +61,7 @@ import {
     IndividualRestaurantComponent,
     LoginComponent,
     PermissionErrorComponent,
+    HoverDirective,
   ],
   imports: [
     BrowserModule,
