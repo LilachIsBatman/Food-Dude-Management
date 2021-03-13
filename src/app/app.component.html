@@ -1,5 +1,9 @@
 <header class="head-nav">
-  <mdb-navbar *ngIf="!isInLogin()" SideClass="navbar navbar-expand-lg grey" [containerInside]="false">
+  <mdb-navbar
+    *ngIf="!isInLogin()"
+    SideClass="navbar navbar-expand-lg grey"
+    [containerInside]="false"
+  >
     <mdb-navbar-brand>
       <a class="logo navbar-brand" href="#">
         <strong>FooDude</strong>
@@ -8,42 +12,79 @@
     <links>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a class="nav-link" routerLink="/users-table" routerLinkActive="active">Users</a>
+          <a
+            appHover
+            class="nav-link"
+            routerLink="/users-table"
+            routerLinkActive="active"
+            [class.active]="router.url === '/users-table'"
+            >Users</a
+          >
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a class="nav-link" routerLink="/restaurant-table" routerLinkActive="active">Restaurants</a>
+          <a
+            appHover
+            class="nav-link"
+            routerLink="/restaurant-table"
+            routerLinkActive="active"
+            [class.active]="router.url === '/restaurant-table'"
+            >Restaurants</a
+          >
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a class="nav-link" routerLink="/review-table" routerLinkActive="active">Reviews</a>
+          <a
+            appHover
+            class="nav-link"
+            routerLink="/review-table"
+            routerLinkActive="active"
+            [class.active]="router.url === '/review-table'"
+            >Reviews</a
+          >
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a class="nav-link" routerLink="/categories-table" routerLinkActive="active">Categories</a>
+          <a
+            appHover
+            class="nav-link"
+            routerLink="/categories-table"
+            routerLinkActive="active"
+            [class.active]="router.url === '/categories-table'"
+            >Categories</a
+          >
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a routerLink="statistics/restaurants-share" routerLinkActive="active" class="nav-link">Restaurant Share</a>
+          <a appHover routerLink="statistics/restaurants-share" routerLinkActive="active" class="nav-link">Restaurant Share</a>
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a routerLink="statistics/average-rating" routerLinkActive="active" class="nav-link">Average Rating</a>
+          <a appHover routerLink="statistics/average-rating" routerLinkActive="active" class="nav-link">Average Rating</a>
         </li>
       </ul>
-      <ul *ngIf="!(token | async); else connectedUsersAmount" class="navbar-nav ml-auto">
+      <ul
+        *ngIf="!(token | async); else connectedUsersAmount"
+        class="navbar-nav ml-auto"
+      >
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a class="nav-link login" routerLink="/login" routerLinkActive="active">Login</a>
+          <a
+            class="nav-link login"
+            routerLink="/login"
+            routerLinkActive="active"
+            >Login</a
+          >
         </li>
       </ul>
       <ng-template #connectedUsersAmount>
         <div class="navbar-nav ml-auto login d-flex align-items-end">
-        Logged in users: {{connectedUserAmount | async}}
+          Logged in users: {{ connectedUserAmount | async }}
         </div>
       </ng-template>
     </links>
-
   </mdb-navbar>
   <div class="view intro-2">
     <div class="full-bg-img">
       <div class="mask rgba-purple-light flex-center">
         <div class="container text-center white-text wow fadeInUp">
-          <app-permission-error *ngIf="(!(token | async) && !isInLogin()); else routerOutlet"></app-permission-error>
+          <app-permission-error
+            *ngIf="!(token | async) && !isInLogin(); else routerOutlet"
+          ></app-permission-error>
           <ng-template #routerOutlet>
             <router-outlet></router-outlet>
           </ng-template>
